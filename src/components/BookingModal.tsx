@@ -12,12 +12,18 @@ interface BookingModalProps {
   vehicleType?: string;
 }
 
+interface BookingResult {
+  assigned_vehicle: string;
+  ai_message: string;
+  price: number;
+}
+
 const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType }) => {
   const [pickup, setPickup] = useState("");
   const [dropoff, setDropoff] = useState("");
   const [type, setType] = useState(vehicleType || "car");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<BookingResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   // Feedback state
   const [showFeedback, setShowFeedback] = useState(false);
@@ -64,8 +70,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
         price: pricingData.dynamic_price,
       });
       setShowFeedback(true);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
     }
@@ -89,8 +95,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
       });
       if (!res.ok) throw new Error("Feedback submission failed");
       setFeedbackSuccess(true);
-    } catch (err: any) {
-      setFeedbackError(err.message);
+    } catch (err: unknown) {
+      setFeedbackError(err instanceof Error ? err.message : String(err));
     } finally {
       setFeedbackLoading(false);
     }
@@ -102,29 +108,20 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
         <DialogHeader>Book a Ride</DialogHeader>
         {!showFeedback ? (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <FormItem>
-              <FormLabel>Pickup Location</FormLabel>
-              <FormControl>
-                <Input value={pickup} onChange={e => setPickup(e.target.value)} required placeholder="Enter pickup location" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Dropoff Location</FormLabel>
-              <FormControl>
-                <Input value={dropoff} onChange={e => setDropoff(e.target.value)} required placeholder="Enter dropoff location" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Vehicle Type</FormLabel>
-              <FormControl>
-                <select value={type} onChange={e => setType(e.target.value)} className="w-full p-2 rounded-md border">
-                  {VEHICLE_TYPES.map(v => <option key={v} value={v}>{v.charAt(0).toUpperCase() + v.slice(1)}</option>)}
-                </select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <div className="space-y-2">
+              <label className="block font-medium">Pickup Location</label>
+              <Input value={pickup} onChange={e => setPickup(e.target.value)} required placeholder="Enter pickup location" />
+            </div>
+            <div className="space-y-2">
+              <label className="block font-medium">Dropoff Location</label>
+              <Input value={dropoff} onChange={e => setDropoff(e.target.value)} required placeholder="Enter dropoff location" />
+            </div>
+            <div className="space-y-2">
+              <label className="block font-medium">Vehicle Type</label>
+              <select value={type} onChange={e => setType(e.target.value)} className="w-full p-2 rounded-md border">
+                {VEHICLE_TYPES.map(v => <option key={v} value={v}>{v.charAt(0).toUpperCase() + v.slice(1)}</option>)}
+              </select>
+            </div>
             <Button type="submit" variant="premium" className="w-full" disabled={loading}>
               {loading ? "Booking..." : "Book Now"}
             </Button>
@@ -132,22 +129,16 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
         ) : (
           <form onSubmit={handleFeedbackSubmit} className="space-y-4">
             <div className="text-lg font-semibold mb-2">Thank you for booking! Please rate your experience:</div>
-            <FormItem>
-              <FormLabel>Rating</FormLabel>
-              <FormControl>
-                <select value={feedbackRating} onChange={e => setFeedbackRating(Number(e.target.value))} className="w-full p-2 rounded-md border">
-                  {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} Star{r > 1 ? 's' : ''}</option>)}
-                </select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Comments</FormLabel>
-              <FormControl>
-                <Input value={feedbackComments} onChange={e => setFeedbackComments(e.target.value)} placeholder="Your feedback..." />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <div className="space-y-2">
+              <label className="block font-medium">Rating</label>
+              <select value={feedbackRating} onChange={e => setFeedbackRating(Number(e.target.value))} className="w-full p-2 rounded-md border">
+                {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} Star{r > 1 ? 's' : ''}</option>)}
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="block font-medium">Comments</label>
+              <Input value={feedbackComments} onChange={e => setFeedbackComments(e.target.value)} placeholder="Your feedback..." />
+            </div>
             <Button type="submit" variant="premium" className="w-full" disabled={feedbackLoading}>
               {feedbackLoading ? "Submitting..." : "Submit Feedback"}
             </Button>
