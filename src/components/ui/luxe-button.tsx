@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground font-secondary font-medium hover:shadow-luxe-button-hover",
-        premium: "bg-gradient-gold text-luxe-white-primary font-secondary font-medium hover:shadow-luxe-gold-glow transform hover:scale-105",
+        premium: "bg-gradient-gold text-luxe-black-text font-secondary font-medium hover:shadow-luxe-gold-glow transform hover:scale-105",
         outline: "border border-luxe-dark-outline bg-transparent text-luxe-white-primary font-secondary font-medium hover:bg-luxe-dark-outline hover:text-luxe-white-primary",
         ghost: "text-luxe-white-primary hover:bg-luxe-dark-outline hover:text-luxe-white-primary",
         link: "text-luxe-gold-accent underline-offset-4 hover:underline",

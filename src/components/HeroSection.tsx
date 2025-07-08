@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/luxe-button"
 import { ArrowRight, Star, Shield, Clock } from "lucide-react"
+import { Link } from "react-router-dom"
 import heroImage from "@/assets/hero-luxury-car.jpg"
 
 const HeroSection = () => {
@@ -46,13 +47,17 @@ const HeroSection = () => {
 
           {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="premium" size="lg" className="text-lg">
-              Book Your Ride
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg">
-              Join VIP Club
-            </Button>
+            <Link to="/executive-cars">
+              <Button variant="premium" size="lg" className="text-lg">
+                Book Your Ride
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/vip-membership">
+              <Button variant="outline" size="lg" className="text-lg">
+                Join VIP Club
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

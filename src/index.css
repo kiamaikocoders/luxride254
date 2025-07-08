@@ -17,6 +17,7 @@
     --luxe-gold-star: 45 100% 51%; /* #FFC107 */
     --luxe-gray-footer: 0 0% 80%; /* #CCCCCC */
     --luxe-dark-social: 0 0% 13.3%; /* #222222 */
+    --luxe-black-text: 0 0% 0%; /* #000000 */
 
     /* Semantic Color Mapping */
     --background: var(--luxe-dark-primary);

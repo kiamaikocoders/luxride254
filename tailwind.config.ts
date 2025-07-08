@@ -65,6 +65,7 @@ export default {
 					'gold-star': 'hsl(var(--luxe-gold-star))',
 					'gray-footer': 'hsl(var(--luxe-gray-footer))',
 					'dark-social': 'hsl(var(--luxe-dark-social))',
+					'black-text': 'hsl(var(--luxe-black-text))',
 				}
 			},
 			boxShadow: {

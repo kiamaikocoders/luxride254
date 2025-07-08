@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/luxe-button"
 import { ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
 import executiveImage from "@/assets/executive-cars.jpg"
 import helicopterImage from "@/assets/helicopter-charters.jpg"
 import speedboatImage from "@/assets/speedboat-transfers.jpg"
@@ -16,7 +17,8 @@ const ServicesSection = () => {
         "Wi-Fi & Refreshments",
         "Airport Transfers",
         "Corporate Accounts"
-      ]
+      ],
+      link: "/executive-cars"
     },
     {
       title: "Helicopter Charters",
@@ -28,7 +30,8 @@ const ServicesSection = () => {
         "Scenic Route Options",
         "Emergency Medical",
         "VIP Transfers"
-      ]
+      ],
+      link: "/helicopter-charters"
     },
     {
       title: "Speedboat Transfers",
@@ -40,7 +43,8 @@ const ServicesSection = () => {
         "Safety Equipment",
         "Coastal Transfers",
         "Island Hopping"
-      ]
+      ],
+      link: "/speedboat-transfers"
     }
   ]
 
@@ -94,9 +98,11 @@ const ServicesSection = () => {
                 </ul>
 
                 {/* Learn More Link */}
-                <Button variant="link" className="p-0 h-auto text-luxe-gold-accent font-medium">
-                  Learn More <ArrowRight className="h-4 w-4 ml-1" />
-                </Button>
+                <Link to={service.link}>
+                  <Button variant="link" className="p-0 h-auto text-luxe-gold-accent font-medium">
+                    Learn More <ArrowRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}
