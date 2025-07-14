@@ -42,12 +42,12 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black relative">
+    <div className="min-h-screen flex items-center justify-center relative bg-black">
       {/* Background image with overlay */}
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/assets/luxury-car-bg.jpg)', filter: 'brightness(0.5)' }} />
-      <div className="absolute inset-0 bg-black opacity-60" />
+      <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide Car" className="absolute inset-0 w-full h-full object-cover z-0" style={{ filter: 'brightness(0.5)' }} />
+      <div className="absolute inset-0 bg-black opacity-60 z-10" />
       {/* Card */}
-      <div className="relative z-10 w-full max-w-md mx-auto rounded-2xl bg-black/80 shadow-xl p-8 flex flex-col items-center">
+      <div className="relative z-20 w-full max-w-md mx-auto rounded-2xl bg-black/80 shadow-xl p-8 flex flex-col items-center">
         {/* Logo */}
         <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide" className="h-12 w-auto mb-6" />
         <h2 className="text-2xl font-bold text-white mb-6">Sign In</h2>

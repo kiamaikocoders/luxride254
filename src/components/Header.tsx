@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/luxe-button"
-import { ChevronDown, Phone, Menu } from "lucide-react"
+import { ChevronDown, Phone, Menu, Sun, Moon } from "lucide-react"
 import { Link } from "react-router-dom"
 import BookingModal from "@/components/BookingModal";
 import React, { useState } from "react";
 import UserMenu from "@/components/UserMenu";
+import { useTheme } from "next-themes";
 
 const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#18181b] backdrop-blur-sm border-b border-luxe-dark-outline font-sans">
       <div className="container mx-auto px-8 sm:px-12 lg:px-20">
@@ -48,6 +50,14 @@ const Header = () => {
             <Button variant="premium" size="lg" className="shadow-lg text-lg px-6 py-3 font-bold bg-gradient-to-r from-[#bfa14a] to-[#e6c97b] hover:from-[#e6c97b] hover:to-[#bfa14a] border-2 border-[#bfa14a]">
               Book Now
             </Button>
+            {/* Theme Toggle Button */}
+            <button
+              aria-label="Toggle theme"
+              className="rounded-full p-2 bg-[#23232b] hover:bg-luxe-gold-accent/10 transition text-luxe-gold-accent focus:outline-none focus:ring-2 focus:ring-luxe-gold-accent"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            >
+              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
             <UserMenu />
           </div>
         </div>
@@ -88,6 +98,14 @@ const Header = () => {
               Book Now
             </Button>
             <div className="mt-4"><UserMenu /></div>
+            {/* Theme Toggle Button (Mobile) */}
+            <button
+              aria-label="Toggle theme"
+              className="mt-4 rounded-full p-2 bg-[#23232b] hover:bg-luxe-gold-accent/10 transition text-luxe-gold-accent focus:outline-none focus:ring-2 focus:ring-luxe-gold-accent w-fit self-center"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            >
+              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
           </nav>
         </div>
       )}

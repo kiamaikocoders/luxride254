@@ -8,7 +8,7 @@
 
 @layer base {
   :root {
-    /* LuxeRide Color Palette */
+    /* LuxeRide Color Palette (Dark Mode - Default) */
     --luxe-dark-primary: 0 0% 10.2%; /* #1A1A1A */
     --luxe-gold-accent: 43 69% 52%; /* #D4AF37 */
     --luxe-white-primary: 0 0% 100%; /* #FFFFFF */
@@ -68,6 +68,57 @@
     --gradient-hero-overlay: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
     --gradient-card-subtle: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(51, 51, 51, 0.3));
     --gradient-gold: linear-gradient(135deg, #D4AF37, #F4D03F);
+  }
+
+  .light {
+    /* LuxeRide Light Mode Palette */
+    --luxe-dark-primary: 44 56% 96%; /* #F8F5ED - Luxe Ivory */
+    --luxe-gold-accent: 43 69% 52%; /* #D4AF37 - same gold */
+    --luxe-white-primary: 0 0% 100%; /* #FFFFFF */
+    --luxe-gray-secondary: 44 10% 55%; /* #A89C87 - Deeper Sand for contrast */
+    --luxe-dark-outline: 44 10% 80%; /* #E5DDC8 - Pale Outline */
+    --luxe-gold-star: 45 100% 51%; /* #FFC107 */
+    --luxe-gray-footer: 44 10% 92%; /* #F5F1E7 - Footer Sand */
+    --luxe-dark-social: 44 10% 80%; /* #E5DDC8 - Social Sand */
+    --luxe-black-text: 44 30% 15%; /* #4B3A1A - Deeper Luxe Brown for text */
+
+    /* Semantic Color Mapping */
+    --background: var(--luxe-dark-primary);
+    --foreground: var(--luxe-black-text);
+    --card: var(--luxe-white-primary);
+    --card-foreground: var(--luxe-black-text);
+    --popover: var(--luxe-white-primary);
+    --popover-foreground: var(--luxe-black-text);
+    --primary: var(--luxe-gold-accent);
+    --primary-foreground: var(--luxe-white-primary);
+    --secondary: var(--luxe-gray-footer);
+    --secondary-foreground: var(--luxe-black-text);
+    --muted: var(--luxe-gray-secondary);
+    --muted-foreground: var(--luxe-black-text);
+    --accent: var(--luxe-gold-accent);
+    --accent-foreground: var(--luxe-black-text);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--luxe-white-primary);
+    --border: 44 10% 80%; /* #E5DDC8 - subtle border for cards */
+    --input: var(--luxe-dark-outline);
+    --ring: var(--luxe-gold-accent);
+
+    /* Premium Shadows & Effects */
+    --shadow-card: 0 4px 24px rgba(75, 58, 26, 0.08); /* Deeper brown shadow */
+    --shadow-button-hover: 0 2px 8px rgba(212, 175, 55, 0.18);
+    --shadow-gold-glow: 0 0 20px rgba(212, 175, 55, 0.10);
+
+    /* Gradients */
+    --gradient-hero-overlay: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7));
+    --gradient-card-subtle: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(234, 227, 210, 0.3));
+    --gradient-gold: linear-gradient(135deg, #D4AF37, #F4D03F);
+  }
+
+  /* Optional: Light mode header background */
+  .light .fixed.top-0 {
+    background-color: #f8f5ed !important;
+    box-shadow: 0 2px 8px rgba(75, 58, 26, 0.04);
+    border-bottom: 1px solid #e5ddc8;
   }
 }
 
