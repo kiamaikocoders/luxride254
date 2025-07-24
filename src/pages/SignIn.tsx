@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { supabase } from '@/lib/supabaseClient';
 
 const SignIn: React.FC = () => {
@@ -8,36 +8,36 @@ const SignIn: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      setError(error.message);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw new Error(error.message);
+      if (!data.user) throw new Error("No user found.");
+      // Fetch user role
+      const { data: profile, error: profileError } = await supabase
+        .from("users")
+        .select("role")
+        .eq("id", data.user.id)
+        .single();
+      if (profileError) throw new Error("Failed to fetch user role.");
+      // Redirect logic
+      const from = location.state?.from || null;
+      if (profile?.role === "admin") {
+        navigate(from || "/admin");
+      } else if (profile?.role === "driver") {
+        navigate(from || "/driver-dashboard");
+      } else {
+        navigate(from || "/profile");
+      }
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Sign in failed. Please try again.");
+    } finally {
       setLoading(false);
-      return;
-    }
-    // Fetch user role from profile table (assume 'role' column exists)
-    const { data: profile, error: profileError } = await supabase
-      .from("users")
-      .select("role")
-      .eq("id", data.user?.id)
-      .single();
-    if (profileError) {
-      setError("Failed to fetch user role.");
-      setLoading(false);
-      return;
-    }
-    // Redirect based on role
-    if (profile?.role === "admin") {
-      navigate("/admin");
-    } else {
-      navigate("/");
     }
   };
 
@@ -81,9 +81,15 @@ const SignIn: React.FC = () => {
             {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
-        <div className="w-full flex justify-between mt-4">
-          <Link to="/forgot-password" className="text-luxe-gold-accent text-sm hover:underline">Forgot Password?</Link>
-          <Link to="/signup" className="text-luxe-gold-accent text-sm hover:underline">Sign Up</Link>
+        <div className="w-full flex flex-col gap-2 mt-4">
+          <div className="flex justify-between">
+            <Link to="/forgot-password" className="text-luxe-gold-accent text-sm hover:underline">Forgot Password?</Link>
+            <Link to="/signup" className="text-luxe-gold-accent text-sm hover:underline">Sign Up</Link>
+          </div>
+          <div className="flex flex-col gap-1 text-center mt-2">
+            <Link to="/driver-onboarding" className="text-luxe-gold-accent text-sm hover:underline">Become a Driver</Link>
+            <Link to="/corporate-registration" className="text-luxe-gold-accent text-sm hover:underline">Corporate Registration</Link>
+          </div>
         </div>
       </div>
     </div>

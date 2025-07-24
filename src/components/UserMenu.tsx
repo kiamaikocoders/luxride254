@@ -18,9 +18,23 @@ const UserMenu: React.FC = () => {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user));
-    if (user) {
-      supabase.from("users").select("role, full_name").eq("id", user.id).single().then(({ data }) => setProfile(data));
-    }
+  }, []);
+
+  useEffect(() => {
+    if (!user) return; // Only fetch if user is logged in
+    supabase
+      .from("users")
+      .select("role, full_name")
+      .eq("id", user.id)
+      .single()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Failed to fetch user profile:", error.message);
+          // Optionally: setProfile(null); // You may want to clear profile on error
+          return;
+        }
+        setProfile(data);
+      });
   }, [user]);
 
   const handleLogout = async () => {
@@ -39,18 +53,59 @@ const UserMenu: React.FC = () => {
 
   if (!user) return null;
 
+  const role = profile?.role || "user";
+
   return (
     <div className="relative inline-block text-left">
       <button onClick={() => setOpen(o => !o)} className="flex items-center gap-2 px-3 py-2 rounded-full bg-luxe-dark-outline text-luxe-gold-accent hover:bg-luxe-gold-accent/20">
         <span className="inline-block w-8 h-8 rounded-full bg-luxe-gold-accent text-black flex items-center justify-center font-bold">
           {profile?.full_name?.[0]?.toUpperCase() || user.email[0].toUpperCase()}
         </span>
+        <span className="text-xs text-luxe-gold-accent font-semibold ml-1">{role.charAt(0).toUpperCase() + role.slice(1)}</span>
         <svg className="w-4 h-4 ml-1 text-luxe-gold-accent" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-black/90 ring-1 ring-black ring-opacity-5 z-50">
-          <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/bookings"); }}>My Bookings</button>
-          <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/profile"); }}>Profile Settings</button>
+        <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-black/90 ring-1 ring-black ring-opacity-5 z-50">
+          {/* Admin menu */}
+          {role === "admin" && (
+            <>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/admin"); }}>Admin Dashboard</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/manage-users"); }}>Manage Users</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/manage-drivers"); }}>Manage Drivers</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/manage-vehicles"); }}>Manage Vehicles</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/feedback"); }}>Feedback</button>
+            </>
+          )}
+          {/* Driver menu */}
+          {role === "driver" && (
+            <>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/driver-dashboard"); }}>Driver Dashboard</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/my-trips"); }}>My Trips</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/earnings"); }}>Earnings</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/profile"); }}>Profile</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/feedback"); }}>Feedback</button>
+            </>
+          )}
+          {/* Corporate menu */}
+          {role === "corporate" && (
+            <>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/corporate-dashboard"); }}>Corporate Dashboard</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/team-bookings"); }}>Team Bookings</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/approvals"); }}>Approvals</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/reports"); }}>Reports</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/manage-team"); }}>Manage Team</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/profile"); }}>Profile</button>
+            </>
+          )}
+          {/* Regular user menu */}
+          {role !== "admin" && role !== "driver" && role !== "corporate" && (
+            <>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/profile"); }}>Profile</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/bookings"); }}>My Bookings</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/vip-membership"); }}>VIP Membership</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/feedback"); }}>Feedback</button>
+            </>
+          )}
           <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-red-500" onClick={handleLogout}>Logout</button>
         </div>
       )}

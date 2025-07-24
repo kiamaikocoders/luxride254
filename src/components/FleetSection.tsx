@@ -38,7 +38,7 @@ import React, { useState, useRef } from "react";
       name: "Range Rover Vogue",
       price: "From KSH 7,200",
       period: "/hour",
-    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 ",
+    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: [
         "All-Terrain Capability",
         "Spacious Interior",

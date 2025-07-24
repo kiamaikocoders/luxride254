@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { supabase } from '@/lib/supabaseClient';
 
 const SignUp: React.FC = () => {
@@ -10,6 +10,7 @@ const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,28 +20,26 @@ const SignUp: React.FC = () => {
       return;
     }
     setLoading(true);
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) {
-      setError(error.message);
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) throw new Error(error.message);
+      if (!data.user) throw new Error("Sign up failed. No user returned.");
+      // Upsert user profile with default role 'user'
+      const { error: profileError } = await supabase.from("users").upsert({
+        id: data.user.id,
+        email,
+        full_name: username,
+        role: "user",
+      });
+      if (profileError) throw new Error(profileError.message || "Failed to create user profile.");
+      // Redirect logic
+      const from = location.state?.from || null;
+      navigate(from || "/profile");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Sign up failed. Please try again.");
+    } finally {
       setLoading(false);
-      return;
     }
-    // Upsert user profile with default role 'user'
-    const { error: profileError } = await supabase.from("users").upsert({
-      id: data.user?.id,
-      email,
-      full_name: username,
-      role: "user",
-    });
-    if (profileError) {
-      setError(profileError.message || "Failed to create user profile.");
-      setLoading(false);
-      return;
-    }
-    navigate("/");
   };
 
   return (
@@ -103,8 +102,14 @@ const SignUp: React.FC = () => {
             {loading ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
-        <div className="w-full flex justify-end mt-4">
-          <Link to="/login" className="text-luxe-gold-accent text-sm hover:underline">Sign In</Link>
+        <div className="w-full flex flex-col gap-2 mt-4">
+          <div className="flex justify-end">
+            <Link to="/login" className="text-luxe-gold-accent text-sm hover:underline">Sign In</Link>
+          </div>
+          <div className="flex flex-col gap-1 text-center mt-2">
+            <Link to="/driver-onboarding" className="text-luxe-gold-accent text-sm hover:underline">Become a Driver</Link>
+            <Link to="/corporate-registration" className="text-luxe-gold-accent text-sm hover:underline">Corporate Registration</Link>
+          </div>
         </div>
       </div>
     </div>

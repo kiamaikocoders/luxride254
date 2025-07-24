@@ -1,16 +1,24 @@
 import { Button } from "@/components/ui/luxe-button"
 import { ChevronDown, Phone, Menu, Sun, Moon } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import BookingModal from "@/components/BookingModal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserMenu from "@/components/UserMenu";
 import { useTheme } from "next-themes";
+import { supabase } from '@/lib/supabaseClient';
 
 const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+  }, []);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#18181b] backdrop-blur-sm border-b border-luxe-dark-outline font-sans">
       <div className="container mx-auto px-8 sm:px-12 lg:px-20">
@@ -40,6 +48,8 @@ const Header = () => {
             </div>
             <Link to="/vip-membership" className="text-white px-3 py-2 font-medium relative transition-colors duration-200 hover:text-luxe-gold-accent after:content-[''] after:block after:mx-auto after:w-3/5 after:border-b-2 after:border-luxe-gold-accent after:rounded after:mt-1 after:opacity-0 hover:after:opacity-100">VIP Membership</Link>
             <Link to="/feedback" className="text-white px-3 py-2 font-medium relative transition-colors duration-200 hover:text-luxe-gold-accent after:content-[''] after:block after:mx-auto after:w-3/5 after:border-b-2 after:border-luxe-gold-accent after:rounded after:mt-1 after:opacity-0 hover:after:opacity-100">Feedback</Link>
+            <Link to="/driver-onboarding" className="text-luxe-gold-accent px-3 py-2 font-medium hover:underline">Become a Driver</Link>
+            <Link to="/corporate-registration" className="text-luxe-gold-accent px-3 py-2 font-medium hover:underline">Corporate Registration</Link>
           </nav>
           {/* CTA and User */}
           <div className="flex items-center space-x-4">
@@ -47,7 +57,15 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               +254 700 123 456
             </a>
-            <Button variant="premium" size="lg" className="shadow-lg text-lg px-6 py-3 font-bold bg-gradient-to-r from-[#bfa14a] to-[#e6c97b] hover:from-[#e6c97b] hover:to-[#bfa14a] border-2 border-[#bfa14a]">
+            <Button
+              variant="premium"
+              size="lg"
+              className="shadow-lg text-lg px-6 py-3 font-bold bg-gradient-to-r from-[#bfa14a] to-[#e6c97b] hover:from-[#e6c97b] hover:to-[#bfa14a] border-2 border-[#bfa14a]"
+              onClick={() => {
+                if (!user) navigate('/login');
+                else setModalOpen(true);
+              }}
+            >
               Book Now
             </Button>
             {/* Theme Toggle Button */}
@@ -58,7 +76,12 @@ const Header = () => {
             >
               {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <UserMenu />
+            {user ? <UserMenu /> : (
+              <>
+                <Button variant="outline" onClick={() => navigate('/login')}>Login</Button>
+                <Button variant="premium" onClick={() => navigate('/signup')}>Sign Up</Button>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -90,6 +113,8 @@ const Header = () => {
             </div>
             <Link to="/vip-membership" onClick={() => setMobileOpen(false)} className="py-2 text-white border-b border-luxe-dark-outline">VIP Membership</Link>
             <Link to="/feedback" onClick={() => setMobileOpen(false)} className="py-2 text-white border-b border-luxe-dark-outline">Feedback</Link>
+            <Link to="/driver-onboarding" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">Become a Driver</Link>
+            <Link to="/corporate-registration" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">Corporate Registration</Link>
             <a href="tel:+254700123456" className="flex items-center gap-2 py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">
               <Phone className="h-5 w-5" />
               +254 700 123 456

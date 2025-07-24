@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import ExecutiveCars from "./pages/ExecutiveCars";
 import HelicopterCharters from "./pages/HelicopterCharters";
@@ -23,28 +23,47 @@ import { ThemeProvider } from "next-themes";
 import { FaComments } from "react-icons/fa";
 import React from "react";
 import LuxeRideChat from "@/components/LuxeRideChat";
+import AdminDashboard from "./pages/AdminDashboard";
+import DriverDashboard from "./pages/DriverDashboard";
+import CorporateDashboard from "./pages/CorporateDashboard";
+import DriverOnboarding from "./pages/DriverOnboarding";
+import CorporateRegistration from "./pages/CorporateRegistration";
+import Bookings from "./pages/Bookings";
+import MyTrips from "./pages/MyTrips";
+import Earnings from "./pages/Earnings";
+import TeamBookings from "./pages/TeamBookings";
+import Approvals from "./pages/Approvals";
+import Reports from "./pages/Reports";
+import ManageTeam from "./pages/ManageTeam";
+import ManageUsers from "./pages/ManageUsers";
+import ManageDrivers from "./pages/ManageDrivers";
+import ManageVehicles from "./pages/ManageVehicles";
 
 const queryClient = new QueryClient();
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+// SoftProtectedRoute: prompts login/signup if not authenticated, then returns to intended page
+const SoftProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [checking, setChecking] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("Supabase session (getSession):", session);
       setSession(session);
+      setChecking(false);
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("Supabase session (onAuthStateChange):", session);
       setSession(session);
+      setChecking(false);
     });
     return () => {
       listener.subscription.unsubscribe();
     };
   }, []);
-  console.log("ProtectedRoute session state:", session);
-  if (session === null) return <div className="min-h-screen flex items-center justify-center text-white">Loading...</div>;
+  if (checking) return <div className="min-h-screen flex items-center justify-center text-white">Loading...</div>;
   if (!session) {
-    window.location.href = "/login";
+    // Save intended path and redirect to login
+    navigate("/login", { state: { from: location.pathname } });
     return null;
   }
   return <>{children}</>;
@@ -114,41 +133,56 @@ const App = () => {
   return (
     <CopilotKit publicApiKey="ck_pub_25482ba2f78d4e5167211dd3f918f309">
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
                 {/* Public pages */}
-                <Route path="/" element={<Index />} />
-                <Route path="/executive-cars" element={<ExecutiveCars />} />
-                <Route path="/helicopter-charters" element={<HelicopterCharters />} />
-                <Route path="/speedboat-transfers" element={<SpeedboatTransfers />} />
-                <Route path="/vip-membership" element={<VIPMembership />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/executive-cars" element={<ExecutiveCars />} />
+          <Route path="/helicopter-charters" element={<HelicopterCharters />} />
+          <Route path="/speedboat-transfers" element={<SpeedboatTransfers />} />
+          <Route path="/vip-membership" element={<VIPMembership />} />
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/driver-onboarding" element={<DriverOnboarding />} />
+                <Route path="/corporate-registration" element={<CorporateRegistration />} />
 
-                {/* Protected pages */}
-                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                <Route path="/feedback" element={<ProtectedRoute><Feedback /></ProtectedRoute>} />
+                {/* Protected pages (soft gated) */}
+                <Route path="/profile" element={<SoftProtectedRoute><Profile /></SoftProtectedRoute>} />
+                <Route path="/feedback" element={<SoftProtectedRoute><Feedback /></SoftProtectedRoute>} />
+                <Route path="/admin" element={<SoftProtectedRoute><AdminDashboard /></SoftProtectedRoute>} />
+                <Route path="/driver-dashboard" element={<SoftProtectedRoute><DriverDashboard /></SoftProtectedRoute>} />
+                <Route path="/corporate-dashboard" element={<SoftProtectedRoute><CorporateDashboard /></SoftProtectedRoute>} />
+                <Route path="/bookings" element={<SoftProtectedRoute><Bookings /></SoftProtectedRoute>} />
+                <Route path="/my-trips" element={<SoftProtectedRoute><MyTrips /></SoftProtectedRoute>} />
+                <Route path="/earnings" element={<SoftProtectedRoute><Earnings /></SoftProtectedRoute>} />
+                <Route path="/team-bookings" element={<SoftProtectedRoute><TeamBookings /></SoftProtectedRoute>} />
+                <Route path="/approvals" element={<SoftProtectedRoute><Approvals /></SoftProtectedRoute>} />
+                <Route path="/reports" element={<SoftProtectedRoute><Reports /></SoftProtectedRoute>} />
+                <Route path="/manage-team" element={<SoftProtectedRoute><ManageTeam /></SoftProtectedRoute>} />
+                <Route path="/manage-users" element={<SoftProtectedRoute><ManageUsers /></SoftProtectedRoute>} />
+                <Route path="/manage-drivers" element={<SoftProtectedRoute><ManageDrivers /></SoftProtectedRoute>} />
+                <Route path="/manage-vehicles" element={<SoftProtectedRoute><ManageVehicles /></SoftProtectedRoute>} />
 
                 {/* Catch-all */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
             {chatOpen && (
               <FloatingChatPanel onClose={() => setChatOpen(false)}>
                 <LuxeRideChat />
               </FloatingChatPanel>
             )}
             {!chatOpen && <FloatingChatButton onClick={() => setChatOpen(true)} />}
-          </TooltipProvider>
-        </QueryClientProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
       </ThemeProvider>
     </CopilotKit>
-  );
+);
 };
 
 export default App;

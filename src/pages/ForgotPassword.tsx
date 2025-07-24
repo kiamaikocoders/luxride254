@@ -13,14 +13,15 @@ const ForgotPassword: React.FC = () => {
     setLoading(true);
     setError(null);
     setMessage(null);
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
-    if (error) {
-      setError(error.message);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      if (error) throw new Error(error.message);
+      setMessage("Password reset link sent! Check your email.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to send reset link. Please try again.");
+    } finally {
       setLoading(false);
-      return;
     }
-    setMessage("Password reset link sent! Check your email.");
-    setLoading(false);
   };
 
   return (
