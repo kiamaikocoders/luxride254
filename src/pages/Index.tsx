@@ -7,6 +7,7 @@ import VIPMembershipSection from "@/components/VIPMembershipSection"
 import FleetSection from "@/components/FleetSection"
 import Footer from "@/components/Footer"
 import React, { useEffect, useState } from "react";
+import { safeFetchJson } from "@/lib/safeFetch";
 import { Button } from "@/components/ui/luxe-button";
 import { toast } from "@/components/ui/use-toast";
 
@@ -34,20 +35,22 @@ const Index = () => {
 
   useEffect(() => {
     if (!isAdmin) return;
-    setLoading(true);
-    setError(null);
-    fetch("/functions/v1/cx-analytics", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ dateRange, serviceType }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.cx_insights) setAnalytics(data.cx_insights);
-        else setError("No analytics found.");
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
+    let active = true;
+    (async () => {
+      setLoading(true);
+      setError(null);
+      const res = await safeFetchJson("/functions/v1/cx-analytics", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dateRange, serviceType }),
+      });
+      if (!active) return;
+      if (!res.ok) setError(res.error || "Failed to fetch");
+      else if ((res.data as any)?.cx_insights) setAnalytics((res.data as any).cx_insights);
+      else setError("No analytics found.");
+      setLoading(false);
+    })();
+    return () => { active = false; };
   }, [isAdmin, dateRange, serviceType, refreshKey]);
 
   const handleRespond = (index: number) => {

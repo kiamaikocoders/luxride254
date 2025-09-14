@@ -5,27 +5,25 @@ import { Button } from "@/components/ui/luxe-button"
 import { ArrowLeft, Crown } from "lucide-react"
 import { Link } from "react-router-dom"
 import React, { useEffect, useState } from "react";
+import { safeFetchJson } from "@/lib/safeFetch";
 
 const VIPMembership = () => {
   const [recommendations, setRecommendations] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchRecommendations = () => {
+  const fetchRecommendations = async () => {
     setLoading(true);
     setError(null);
-    fetch("/functions/v1/recommendation", {
+    const res = await safeFetchJson("/functions/v1/recommendation", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user_id: "demo-user" }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.recommendations) setRecommendations(data.recommendations);
-        else setError("No recommendations found.");
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
+    });
+    if (!res.ok) setError(res.error || "Failed to fetch");
+    else if ((res.data as any)?.recommendations) setRecommendations((res.data as any).recommendations);
+    else setError("No recommendations found.");
+    setLoading(false);
   };
 
   useEffect(() => {

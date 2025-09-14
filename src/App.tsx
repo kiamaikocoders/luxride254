@@ -11,63 +11,18 @@ import VIPMembership from "./pages/VIPMembership";
 import NotFound from "./pages/NotFound";
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotChat } from "@copilotkit/react-ui";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import ForgotPassword from "./pages/ForgotPassword";
-import Profile from "./pages/Profile";
-import { useEffect, useState } from "react";
-import { supabase } from '@/lib/supabaseClient';
-import { Session } from '@supabase/supabase-js';
-import Feedback from "./pages/Feedback";
 import { ThemeProvider } from "next-themes";
 import { FaComments } from "react-icons/fa";
-import React from "react";
+import React, { useState } from "react";
 import LuxeRideChat from "@/components/LuxeRideChat";
-import AdminDashboard from "./pages/AdminDashboard";
-import DriverDashboard from "./pages/DriverDashboard";
-import CorporateDashboard from "./pages/CorporateDashboard";
-import DriverOnboarding from "./pages/DriverOnboarding";
-import CorporateRegistration from "./pages/CorporateRegistration";
-import Bookings from "./pages/Bookings";
-import MyTrips from "./pages/MyTrips";
-import Earnings from "./pages/Earnings";
-import TeamBookings from "./pages/TeamBookings";
-import Approvals from "./pages/Approvals";
-import Reports from "./pages/Reports";
-import ManageTeam from "./pages/ManageTeam";
-import ManageUsers from "./pages/ManageUsers";
-import ManageDrivers from "./pages/ManageDrivers";
-import ManageVehicles from "./pages/ManageVehicles";
+import CarOwnerPartnership from "./pages/CarOwnerPartnership";
+import ChauffeurApplication from "./pages/ChauffeurApplication";
+import SecurityApplication from "./pages/SecurityApplication";
+import CorporateAccounts from "./pages/CorporateAccounts";
+import AffiliateProgram from "./pages/AffiliateProgram";
+import ApplicationStatus from "./pages/ApplicationStatus";
 
 const queryClient = new QueryClient();
-
-// SoftProtectedRoute: prompts login/signup if not authenticated, then returns to intended page
-const SoftProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [checking, setChecking] = useState(true);
-  const navigate = useNavigate();
-  const location = useLocation();
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setChecking(false);
-    });
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setChecking(false);
-    });
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
-  if (checking) return <div className="min-h-screen flex items-center justify-center text-white">Loading...</div>;
-  if (!session) {
-    // Save intended path and redirect to login
-    navigate("/login", { state: { from: location.pathname } });
-    return null;
-  }
-  return <>{children}</>;
-};
 
 const FloatingChatButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button
@@ -139,36 +94,22 @@ const App = () => {
       <Sonner />
       <BrowserRouter>
         <Routes>
-                {/* Public pages */}
+          {/* Public pages - Landing site */}
           <Route path="/" element={<Index />} />
           <Route path="/executive-cars" element={<ExecutiveCars />} />
           <Route path="/helicopter-charters" element={<HelicopterCharters />} />
           <Route path="/speedboat-transfers" element={<SpeedboatTransfers />} />
           <Route path="/vip-membership" element={<VIPMembership />} />
-                <Route path="/login" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/driver-onboarding" element={<DriverOnboarding />} />
-                <Route path="/corporate-registration" element={<CorporateRegistration />} />
 
-                {/* Protected pages (soft gated) */}
-                <Route path="/profile" element={<SoftProtectedRoute><Profile /></SoftProtectedRoute>} />
-                <Route path="/feedback" element={<SoftProtectedRoute><Feedback /></SoftProtectedRoute>} />
-                <Route path="/admin" element={<SoftProtectedRoute><AdminDashboard /></SoftProtectedRoute>} />
-                <Route path="/driver-dashboard" element={<SoftProtectedRoute><DriverDashboard /></SoftProtectedRoute>} />
-                <Route path="/corporate-dashboard" element={<SoftProtectedRoute><CorporateDashboard /></SoftProtectedRoute>} />
-                <Route path="/bookings" element={<SoftProtectedRoute><Bookings /></SoftProtectedRoute>} />
-                <Route path="/my-trips" element={<SoftProtectedRoute><MyTrips /></SoftProtectedRoute>} />
-                <Route path="/earnings" element={<SoftProtectedRoute><Earnings /></SoftProtectedRoute>} />
-                <Route path="/team-bookings" element={<SoftProtectedRoute><TeamBookings /></SoftProtectedRoute>} />
-                <Route path="/approvals" element={<SoftProtectedRoute><Approvals /></SoftProtectedRoute>} />
-                <Route path="/reports" element={<SoftProtectedRoute><Reports /></SoftProtectedRoute>} />
-                <Route path="/manage-team" element={<SoftProtectedRoute><ManageTeam /></SoftProtectedRoute>} />
-                <Route path="/manage-users" element={<SoftProtectedRoute><ManageUsers /></SoftProtectedRoute>} />
-                <Route path="/manage-drivers" element={<SoftProtectedRoute><ManageDrivers /></SoftProtectedRoute>} />
-                <Route path="/manage-vehicles" element={<SoftProtectedRoute><ManageVehicles /></SoftProtectedRoute>} />
+          {/* Partnership and Application pages */}
+          <Route path="/car-owner-partnership" element={<CarOwnerPartnership />} />
+          <Route path="/chauffeur-application" element={<ChauffeurApplication />} />
+          <Route path="/security-application" element={<SecurityApplication />} />
+          <Route path="/corporate-accounts" element={<CorporateAccounts />} />
+          <Route path="/affiliate-program" element={<AffiliateProgram />} />
+          <Route path="/application-status" element={<ApplicationStatus />} />
 
-                {/* Catch-all */}
+          {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

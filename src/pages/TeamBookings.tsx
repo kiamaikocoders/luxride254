@@ -81,11 +81,12 @@ const TeamBookings = () => {
   // Tab filtering
   const filteredTrips = trips.filter((trip) => getTripCategory(trip) === activeTab);
 
+  const SUPABASE_FUNCTIONS_URL = "https://eepcddbdvfhmeouzkpsb.functions.supabase.co";
   // Smart Dispatch integration
   const getDispatchRecommendation = async (pickup_location, dropoff_location, user_id, bookingId) => {
     setDispatchResult(prev => ({ ...prev, [bookingId]: "Loading..." }));
     try {
-      const res = await fetch('/functions/v1/smart-dispatch', {
+      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/smart-dispatch`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pickup_location, dropoff_location, user_id }),

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from '@/lib/supabaseClient';
 
 const SignUp: React.FC = () => {
@@ -7,10 +7,10 @@ const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("user");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,17 +24,15 @@ const SignUp: React.FC = () => {
       const { data, error } = await supabase.auth.signUp({ email, password });
       if (error) throw new Error(error.message);
       if (!data.user) throw new Error("Sign up failed. No user returned.");
-      // Upsert user profile with default role 'user'
+      // Upsert user profile with selected role
       const { error: profileError } = await supabase.from("users").upsert({
         id: data.user.id,
         email,
         full_name: username,
-        role: "user",
+        role,
       });
       if (profileError) throw new Error(profileError.message || "Failed to create user profile.");
-      // Redirect logic
-      const from = location.state?.from || null;
-      navigate(from || "/profile");
+      navigate("/profile");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Sign up failed. Please try again.");
     } finally {
@@ -44,12 +42,9 @@ const SignUp: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative bg-black">
-      {/* Background image with overlay */}
       <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide Car" className="absolute inset-0 w-full h-full object-cover z-0" style={{ filter: 'brightness(0.5)' }} />
       <div className="absolute inset-0 bg-black opacity-60 z-10" />
-      {/* Card */}
       <div className="relative z-20 w-full max-w-md mx-auto rounded-2xl bg-black/80 shadow-xl p-8 flex flex-col items-center">
-        {/* Logo */}
         <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide" className="h-12 w-auto mb-6" />
         <h2 className="text-2xl font-bold text-white mb-6">Sign Up</h2>
         <form className="w-full" onSubmit={handleSignUp}>
@@ -93,6 +88,18 @@ const SignUp: React.FC = () => {
               required
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-luxe-gold-accent mb-1">Role</label>
+            <select
+              className="w-full p-3 rounded bg-black/60 border border-luxe-gold-accent text-white focus:outline-none focus:ring-2 focus:ring-luxe-gold-accent"
+              value={role}
+              onChange={e => setRole(e.target.value)}
+              required
+            >
+              <option value="user">Passenger</option>
+              <option value="driver">Driver</option>
+            </select>
+          </div>
           {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
           <button
             type="submit"
@@ -106,14 +113,10 @@ const SignUp: React.FC = () => {
           <div className="flex justify-end">
             <Link to="/login" className="text-luxe-gold-accent text-sm hover:underline">Sign In</Link>
           </div>
-          <div className="flex flex-col gap-1 text-center mt-2">
-            <Link to="/driver-onboarding" className="text-luxe-gold-accent text-sm hover:underline">Become a Driver</Link>
-            <Link to="/corporate-registration" className="text-luxe-gold-accent text-sm hover:underline">Corporate Registration</Link>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignUp; 
+export default SignUp;

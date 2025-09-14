@@ -47,15 +47,18 @@ const HeroSection = () => {
 
           {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/executive-cars">
-              <Button variant="premium" size="lg" className="text-lg">
-                Book Your Ride
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-            </Link>
+            <Button 
+              variant="premium" 
+              size="lg" 
+              className="text-lg"
+              onClick={() => window.open('mailto:info@luxeride.com?subject=VIP Access Application', '_blank')}
+            >
+              Apply for VIP Access
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Button>
             <Link to="/vip-membership">
               <Button variant="outline" size="lg" className="text-lg">
-                Join VIP Club
+                View VIP Packages
               </Button>
             </Link>
           </div>

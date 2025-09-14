@@ -1,97 +1,72 @@
 import { Button } from "@/components/ui/luxe-button"
 import { ChevronDown, Phone, Menu, Sun, Moon } from "lucide-react"
-import { Link, useNavigate } from "react-router-dom"
-import BookingModal from "@/components/BookingModal";
-import React, { useState, useEffect } from "react";
-import UserMenu from "@/components/UserMenu";
+import { Link } from "react-router-dom"
+import React, { useState } from "react";
 import { useTheme } from "next-themes";
-import { supabase } from '@/lib/supabaseClient';
+import { FaSun } from "react-icons/fa";
 
 const Header = () => {
-  const [modalOpen, setModalOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
-  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#18181b] backdrop-blur-sm border-b border-luxe-dark-outline font-sans">
-      <div className="container mx-auto px-8 sm:px-12 lg:px-20">
-        <div className="flex items-center justify-between h-20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#18181b] backdrop-blur-sm border-b border-luxe-dark-outline font-sans flex items-center h-16">
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-4 mr-8">
-            <img 
-              src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" 
-              alt="LuxeRide" 
-              className="h-12 w-auto"
-            />
+        <Link to="/" className="flex items-center h-16 mr-6">
+          <img src="/luxride-logo.png" alt="LuxeRide Logo" className="h-12 w-auto" style={{ minWidth: 48, background: 'none', border: 'none', boxShadow: 'none' }} />
           </Link>
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8 text-base font-medium">
-            <Link to="/" className="text-white px-3 py-2 font-medium relative transition-colors duration-200 hover:text-luxe-gold-accent after:content-[''] after:block after:mx-auto after:w-3/5 after:border-b-2 after:border-luxe-gold-accent after:rounded after:mt-1 after:opacity-0 hover:after:opacity-100">Home</Link>
-            <div className="relative">
-              <button onClick={() => setServicesOpen(o => !o)} className="nav-link flex items-center gap-1">
-                Services <ChevronDown className="w-4 h-4" />
-              </button>
-              {servicesOpen && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-[#23232b] ring-1 ring-black ring-opacity-5 z-50">
-                  <Link to="/executive-cars" className="block px-4 py-2 hover:bg-luxe-gold-accent/10 text-white">Executive Cars</Link>
-                  <Link to="/helicopter-charters" className="block px-4 py-2 hover:bg-luxe-gold-accent/10 text-white">Helicopter Charters</Link>
-                  <Link to="/speedboat-transfers" className="block px-4 py-2 hover:bg-luxe-gold-accent/10 text-white">Speedboat Transfers</Link>
-                </div>
-              )}
+        {/* Navigation */}
+        <nav className="flex-1 flex items-center space-x-6">
+          <Link to="/" className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition">Home</Link>
+          <div className="relative group">
+            <button className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition flex items-center">Services <span className="ml-1">▼</span></button>
+            <div className="absolute left-0 mt-2 w-48 bg-black border border-zinc-800 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+              <Link to="/executive-cars" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Executive Cars</Link>
+              <Link to="/helicopter-charters" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Helicopter Charters</Link>
+              <Link to="/speedboat-transfers" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Speedboat Transfers</Link>
             </div>
-            <Link to="/vip-membership" className="text-white px-3 py-2 font-medium relative transition-colors duration-200 hover:text-luxe-gold-accent after:content-[''] after:block after:mx-auto after:w-3/5 after:border-b-2 after:border-luxe-gold-accent after:rounded after:mt-1 after:opacity-0 hover:after:opacity-100">VIP Membership</Link>
-            <Link to="/feedback" className="text-white px-3 py-2 font-medium relative transition-colors duration-200 hover:text-luxe-gold-accent after:content-[''] after:block after:mx-auto after:w-3/5 after:border-b-2 after:border-luxe-gold-accent after:rounded after:mt-1 after:opacity-0 hover:after:opacity-100">Feedback</Link>
-            <Link to="/driver-onboarding" className="text-luxe-gold-accent px-3 py-2 font-medium hover:underline">Become a Driver</Link>
-            <Link to="/corporate-registration" className="text-luxe-gold-accent px-3 py-2 font-medium hover:underline">Corporate Registration</Link>
-          </nav>
-          {/* CTA and User */}
-          <div className="flex items-center space-x-4">
-            <a href="tel:+254700123456" className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#23232b] text-luxe-gold-accent hover:bg-luxe-gold-accent/10 transition font-medium text-base">
-              <Phone className="h-4 w-4" />
-              +254 700 123 456
-            </a>
-            <Button
-              variant="premium"
-              size="lg"
-              className="shadow-lg text-lg px-6 py-3 font-bold bg-gradient-to-r from-[#bfa14a] to-[#e6c97b] hover:from-[#e6c97b] hover:to-[#bfa14a] border-2 border-[#bfa14a]"
-              onClick={() => {
-                if (!user) navigate('/login');
-                else setModalOpen(true);
-              }}
-            >
-              Book Now
-            </Button>
-            {/* Theme Toggle Button */}
-            <button
-              aria-label="Toggle theme"
-              className="rounded-full p-2 bg-[#23232b] hover:bg-luxe-gold-accent/10 transition text-luxe-gold-accent focus:outline-none focus:ring-2 focus:ring-luxe-gold-accent"
-              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            >
-              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
-            {user ? <UserMenu /> : (
-              <>
-                <Button variant="outline" onClick={() => navigate('/login')}>Login</Button>
-                <Button variant="premium" onClick={() => navigate('/signup')}>Sign Up</Button>
-              </>
-            )}
           </div>
+          <div className="relative group">
+            <button className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition flex items-center">Partnerships <span className="ml-1">▼</span></button>
+            <div className="absolute left-0 mt-2 w-48 bg-black border border-zinc-800 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+              <Link to="/car-owner-partnership" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Car Owner Partnership</Link>
+              <Link to="/chauffeur-application" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Chauffeur Application</Link>
+              <Link to="/security-application" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Security Careers</Link>
+              <Link to="/corporate-accounts" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Corporate Accounts</Link>
+              <Link to="/application-status" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Check Application Status</Link>
+            </div>
+          </div>
+          <Link to="/vip-membership" className="text-luxe-gold-accent font-semibold px-3 py-2 hover:text-white transition">VIP Membership</Link>
+        </nav>
+        {/* Actions: Apply for VIP Access, Theme Toggle */}
+        <div className="flex items-center space-x-3">
+          <Button
+            variant="premium"
+            size="lg"
+            className="px-6 py-2 font-bold text-lg"
+            onClick={() => window.open('mailto:info@luxeride.com?subject=VIP Access Application', '_blank')}
+          >
+            Apply for VIP Access
+          </Button>
+          {/* Theme Toggle */}
+          <button
+            className="ml-2 p-2 rounded-full bg-zinc-800 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-luxe-gold-accent transition"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle dark mode"
+          >
+            <FaSun className="text-luxe-gold-accent" />
+          </button>
         </div>
       </div>
-      <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-black/90 flex flex-col">
           <div className="flex items-center justify-between px-6 py-4 border-b border-luxe-dark-outline">
             <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center space-x-3">
-              <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide" className="h-10 w-auto" />
+              <img src="/luxride-logo.png" alt="LuxeRide" className="h-10 w-auto" />
             </Link>
             <button onClick={() => setMobileOpen(false)} className="p-2 rounded text-luxe-gold-accent">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -111,18 +86,33 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <Link to="/vip-membership" onClick={() => setMobileOpen(false)} className="py-2 text-white border-b border-luxe-dark-outline">VIP Membership</Link>
-            <Link to="/feedback" onClick={() => setMobileOpen(false)} className="py-2 text-white border-b border-luxe-dark-outline">Feedback</Link>
-            <Link to="/driver-onboarding" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">Become a Driver</Link>
-            <Link to="/corporate-registration" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">Corporate Registration</Link>
+            <div className="flex flex-col">
+              <button onClick={() => setMoreOpen(o => !o)} className="flex items-center justify-between py-2 text-white border-b border-luxe-dark-outline">
+                Partnerships <ChevronDown className={`w-5 h-5 ml-2 transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {moreOpen && (
+                <div className="flex flex-col ml-4">
+                  <Link to="/car-owner-partnership" onClick={() => setMobileOpen(false)} className="py-2 text-white">Car Owner Partnership</Link>
+                  <Link to="/chauffeur-application" onClick={() => setMobileOpen(false)} className="py-2 text-white">Chauffeur Application</Link>
+                  <Link to="/security-application" onClick={() => setMobileOpen(false)} className="py-2 text-white">Security Careers</Link>
+                  <Link to="/corporate-accounts" onClick={() => setMobileOpen(false)} className="py-2 text-white">Corporate Accounts</Link>
+                  <Link to="/application-status" onClick={() => setMobileOpen(false)} className="py-2 text-white">Check Application Status</Link>
+                </div>
+              )}
+            </div>
+            <Link to="/vip-membership" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">VIP Membership</Link>
             <a href="tel:+254700123456" className="flex items-center gap-2 py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">
               <Phone className="h-5 w-5" />
               +254 700 123 456
             </a>
-            <Button variant="premium" size="lg" className="my-4 w-full text-lg px-6 py-3 font-bold bg-gradient-to-r from-[#bfa14a] to-[#e6c97b] hover:from-[#e6c97b] hover:to-[#bfa14a] border-2 border-[#bfa14a]">
-              Book Now
+            <Button 
+              variant="premium" 
+              size="lg" 
+              className="my-4 w-full text-lg px-6 py-3 font-bold bg-gradient-to-r from-[#bfa14a] to-[#e6c97b] hover:from-[#e6c97b] hover:to-[#bfa14a] border-2 border-[#bfa14a]"
+              onClick={() => window.open('mailto:info@luxeride.com?subject=VIP Access Application', '_blank')}
+            >
+              Apply for VIP Access
             </Button>
-            <div className="mt-4"><UserMenu /></div>
             {/* Theme Toggle Button (Mobile) */}
             <button
               aria-label="Toggle theme"

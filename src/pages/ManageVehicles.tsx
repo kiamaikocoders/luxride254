@@ -64,38 +64,38 @@ const ManageVehicles = () => {
 
   // UI
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-8 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6 text-luxe-gold-accent">Manage Vehicles</h1>
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-2xl font-bold mb-4 text-gray-900">Manage Vehicles</h2>
       <form className="flex flex-wrap gap-2 mb-6" onSubmit={handleAdd}>
-        <input type="text" className="rounded bg-zinc-800 text-white p-2" placeholder="Make" value={newVehicle.make} onChange={e => setNewVehicle(v => ({ ...v, make: e.target.value }))} required />
-        <input type="text" className="rounded bg-zinc-800 text-white p-2" placeholder="Model" value={newVehicle.model} onChange={e => setNewVehicle(v => ({ ...v, model: e.target.value }))} required />
-        <input type="number" className="rounded bg-zinc-800 text-white p-2" placeholder="Year" value={newVehicle.year} onChange={e => setNewVehicle(v => ({ ...v, year: e.target.value }))} required />
-        <input type="text" className="rounded bg-zinc-800 text-white p-2" placeholder="License Plate" value={newVehicle.license_plate} onChange={e => setNewVehicle(v => ({ ...v, license_plate: e.target.value }))} required />
-        <input type="text" className="rounded bg-zinc-800 text-white p-2" placeholder="Category" value={newVehicle.category} onChange={e => setNewVehicle(v => ({ ...v, category: e.target.value }))} required />
+        <input type="text" className="rounded bg-zinc-100 text-black p-2" placeholder="Make" value={newVehicle.make} onChange={e => setNewVehicle(v => ({ ...v, make: e.target.value }))} required />
+        <input type="text" className="rounded bg-zinc-100 text-black p-2" placeholder="Model" value={newVehicle.model} onChange={e => setNewVehicle(v => ({ ...v, model: e.target.value }))} required />
+        <input type="number" className="rounded bg-zinc-100 text-black p-2" placeholder="Year" value={newVehicle.year} onChange={e => setNewVehicle(v => ({ ...v, year: e.target.value }))} required />
+        <input type="text" className="rounded bg-zinc-100 text-black p-2" placeholder="License Plate" value={newVehicle.license_plate} onChange={e => setNewVehicle(v => ({ ...v, license_plate: e.target.value }))} required />
+        <input type="text" className="rounded bg-zinc-100 text-black p-2" placeholder="Category" value={newVehicle.category} onChange={e => setNewVehicle(v => ({ ...v, category: e.target.value }))} required />
         <button type="submit" className="bg-luxe-gold-accent text-black font-bold px-4 py-2 rounded disabled:opacity-60" disabled={adding}>{adding ? "Adding..." : "Add Vehicle"}</button>
       </form>
       {isLoading ? (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-16 bg-zinc-900 rounded-lg animate-pulse" />
+            <div key={i} className="h-16 bg-gray-100 rounded-lg animate-pulse" />
           ))}
         </div>
       ) : isError ? (
         <div className="text-red-400">Error: {error.message}</div>
       ) : vehicles.length === 0 ? (
-        <div className="text-zinc-400 text-center py-12">No vehicles found.</div>
+        <div className="text-gray-400 text-center py-12">No vehicles found.</div>
       ) : (
         <div className="space-y-4">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className="bg-zinc-900 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between cursor-pointer hover:bg-zinc-800 transition"
+              className="bg-gray-100 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between cursor-pointer hover:bg-gray-200 transition"
               onClick={() => { setSelectedVehicle(vehicle); setModalOpen(true); }}
             >
               <div>
                 <div className="font-bold text-lg text-luxe-gold-accent">{vehicle.make} {vehicle.model} ({vehicle.year})</div>
-                <div className="text-sm text-zinc-400">License: {vehicle.license_plate}</div>
-                <div className="text-sm text-zinc-400">Category: {vehicle.category}</div>
+                <div className="text-sm text-gray-500">License: {vehicle.license_plate}</div>
+                <div className="text-sm text-gray-500">Category: {vehicle.category}</div>
               </div>
               <div className="mt-2 md:mt-0 md:text-right">
                 <button
@@ -110,7 +110,7 @@ const ManageVehicles = () => {
       {/* Vehicle Details Modal */}
       {modalOpen && selectedVehicle && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-zinc-900 rounded-xl p-6 w-full max-w-lg relative">
+          <div className="bg-white rounded-xl p-6 w-full max-w-lg relative">
             <button className="absolute top-2 right-2 text-luxe-gold-accent text-2xl" onClick={() => setModalOpen(false)}>&times;</button>
             <h2 className="text-2xl font-bold mb-2 text-luxe-gold-accent">Vehicle Details</h2>
             <div className="mb-2">Make: <span className="font-semibold">{selectedVehicle.make}</span></div>

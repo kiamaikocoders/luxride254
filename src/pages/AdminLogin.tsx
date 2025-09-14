@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import { supabase } from '@/lib/supabaseClient';
 
-const SignIn: React.FC = () => {
+const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -24,34 +22,26 @@ const SignIn: React.FC = () => {
         .eq("id", data.user.id)
         .single();
       if (profileError) throw new Error("Failed to fetch user role.");
-      // Redirect logic
-      if (profile?.role === "admin") {
-        navigate("/admin");
-      } else if (profile?.role === "driver") {
-        navigate("/driver-dashboard");
-      } else {
-        navigate("/profile");
-      }
+      if (profile?.role !== "admin") throw new Error("Access denied. Not an admin account.");
+      window.location.href = "/admin-dashboard";
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Sign in failed. Please try again.");
+      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative bg-black">
-      <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide Car" className="absolute inset-0 w-full h-full object-cover z-0" style={{ filter: 'brightness(0.5)' }} />
-      <div className="absolute inset-0 bg-black opacity-60 z-10" />
-      <div className="relative z-20 w-full max-w-md mx-auto rounded-2xl bg-black/80 shadow-xl p-8 flex flex-col items-center">
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="w-full max-w-md mx-auto rounded-2xl bg-black/80 shadow-xl p-8 flex flex-col items-center">
         <img src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" alt="LuxeRide" className="h-12 w-auto mb-6" />
-        <h2 className="text-2xl font-bold text-white mb-6">Sign In</h2>
-        <form className="w-full" onSubmit={handleSignIn}>
+        <h2 className="text-2xl font-bold text-white mb-6">Admin Login</h2>
+        <form className="w-full" onSubmit={handleLogin}>
           <div className="mb-4">
             <input
               type="email"
               className="w-full p-3 rounded bg-black/60 border border-luxe-gold-accent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-luxe-gold-accent"
-              placeholder="Email"
+              placeholder="Admin Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
@@ -73,18 +63,12 @@ const SignIn: React.FC = () => {
             className="w-full py-3 rounded bg-luxe-gold-accent text-black font-bold text-lg hover:bg-luxe-gold-accent/90 transition"
             disabled={loading}
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "Logging In..." : "Login"}
           </button>
         </form>
-        <div className="w-full flex flex-col gap-2 mt-4">
-          <div className="flex justify-between">
-            <Link to="/forgot-password" className="text-luxe-gold-accent text-sm hover:underline">Forgot Password?</Link>
-            <Link to="/signup" className="text-luxe-gold-accent text-sm hover:underline">Sign Up</Link>
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default AdminLogin;

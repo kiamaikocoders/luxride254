@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/luxe-button";
 
 const VEHICLE_TYPES = ["car", "chopper", "boat"];
+const SUPABASE_FUNCTIONS_URL = "https://eepcddbdvfhmeouzkpsb.functions.supabase.co";
 
 interface BookingModalProps {
   open: boolean;
@@ -43,7 +44,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
     setResult(null);
     try {
       // Call Smart Dispatch Edge Function
-      const dispatchRes = await fetch("/functions/v1/smart-dispatch", {
+      const dispatchRes = await fetch(`${SUPABASE_FUNCTIONS_URL}/smart-dispatch`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -56,7 +57,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
       if (!dispatchRes.ok) throw new Error(dispatchData.error || "Dispatch failed");
 
       // Optionally call Dynamic Pricing
-      const pricingRes = await fetch("/functions/v1/dynamic-pricing", {
+      const pricingRes = await fetch(`${SUPABASE_FUNCTIONS_URL}/dynamic-pricing`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -87,7 +88,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
     setFeedbackSuccess(false);
     try {
       // Placeholder: POST to feedback edge function (implement as needed)
-      const res = await fetch("/functions/v1/feedback", {
+      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -110,7 +111,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
     setPricingLoading(true);
     setDynamicPrice("Loading...");
     try {
-      const res = await fetch('/functions/v1/dynamic-pricing', {
+      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/dynamic-pricing`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ride_details, supply, demand, event_context }),
@@ -127,7 +128,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
   const getRecommendations = async (user_id, context) => {
     setRecommendations("Loading...");
     try {
-      const res = await fetch('/functions/v1/recommendation', {
+      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/recommendation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id, context }),

@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
               <img 
-                src="/lovable-uploads/17e72a8b-49e0-4058-be7d-041219b45d45.png" 
+                src="/luxride-logo.png" 
                 alt="LuxeRide" 
                 className="h-8 w-auto"
               />
@@ -39,21 +39,10 @@ const Footer = () => {
               Services
             </h3>
             <ul className="space-y-3">
-              {[
-                'Executive Cars',
-                'Helicopter Charters', 
-                'Speedboat Transfers',
-                'VIP Membership'
-              ].map((service, index) => (
-                <li key={index}>
-                  <a 
-                    href="#" 
-                    className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300"
-                  >
-                    {service}
-                  </a>
-                </li>
-              ))}
+              <li><a href="/executive-cars" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Executive Cars</a></li>
+              <li><a href="/helicopter-charters" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Helicopter Charters</a></li>
+              <li><a href="/speedboat-transfers" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Speedboat Transfers</a></li>
+              <li><a href="/vip-membership" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">VIP Membership</a></li>
             </ul>
           </div>
 
@@ -63,21 +52,10 @@ const Footer = () => {
               Partners
             </h3>
             <ul className="space-y-3">
-              {[
-                'Car Owner Partnership',
-                'Chauffeur Application',
-                'Corporate Accounts',
-                'Affiliate Program'
-              ].map((partner, index) => (
-                <li key={index}>
-                  <a 
-                    href="#" 
-                    className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300"
-                  >
-                    {partner}
-                  </a>
-                </li>
-              ))}
+              <li><a href="/car-owner-partnership" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Car Owner Partnership</a></li>
+              <li><a href="/chauffeur-application" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Chauffeur Application</a></li>
+              <li><a href="/corporate-accounts" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Corporate Accounts</a></li>
+              <li><a href="/affiliate-program" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Affiliate Program</a></li>
             </ul>
           </div>
 
@@ -110,15 +88,10 @@ const Footer = () => {
 
             {/* Policy Links */}
             <div className="flex space-x-6">
-              {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((policy, index) => (
-                <a 
-                  key={index}
-                  href="#" 
-                  className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300"
-                >
-                  {policy}
-                </a>
-              ))}
+              <a href="/car-owner-partnership" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Car Owner Partnership</a>
+              <a href="/chauffeur-application" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Chauffeur Application</a>
+              <a href="/corporate-accounts" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Corporate Accounts</a>
+              <a href="/affiliate-program" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Affiliate Program</a>
             </div>
           </div>
         </div>

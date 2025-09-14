@@ -92,6 +92,9 @@ const Bookings = () => {
   return (
     <div className="min-h-screen bg-black text-white px-4 py-8 max-w-3xl mx-auto">
       <h1 className="text-4xl font-bold mb-6 text-luxe-gold-accent">My Bookings</h1>
+      {!user && (
+        <div className="mb-6 p-4 bg-zinc-900 rounded">Please sign in to view and manage your bookings.</div>
+      )}
       <div className="flex gap-4 mb-6">
         {STATUS_TABS.map((tab) => (
           <button
@@ -112,7 +115,12 @@ const Bookings = () => {
       ) : isError ? (
         <div className="text-red-400">Error: {error.message}</div>
       ) : filteredTrips.length === 0 ? (
-        <div className="text-zinc-400 text-center py-12">No {activeTab} bookings found.</div>
+        <div className="text-zinc-400 text-center py-12">
+          No {activeTab} bookings found.
+          <div className="mt-4">
+            <a href="/" className="bg-luxe-gold-accent text-black font-bold px-4 py-2 rounded">Book your first ride</a>
+          </div>
+        </div>
       ) : (
         <div className="space-y-4">
           {filteredTrips.map((trip) => (
