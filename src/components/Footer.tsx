@@ -1,6 +1,10 @@
-import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react"
+import { Facebook, Instagram, Twitter, Linkedin, ChevronDown, ChevronUp } from "lucide-react"
+import { useState } from "react"
 
 const Footer = () => {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [partnersOpen, setPartnersOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   return (
     <footer className="bg-luxe-dark-primary border-t border-luxe-dark-outline">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -35,10 +39,14 @@ const Footer = () => {
 
           {/* Column 2 - Services */}
           <div>
-            <h3 className="font-primary text-lg font-bold text-luxe-white-primary mb-4">
-              Services
-            </h3>
-            <ul className="space-y-3">
+            <button 
+              onClick={() => setServicesOpen(!servicesOpen)}
+              className="flex items-center justify-between w-full md:block font-primary text-lg font-bold text-luxe-white-primary mb-4"
+            >
+              <span>Services</span>
+              <ChevronDown className={`w-5 h-5 md:hidden transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <ul className={`space-y-3 ${servicesOpen ? 'block' : 'hidden md:block'}`}>
               <li><a href="/executive-cars" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Executive Cars</a></li>
               <li><a href="/helicopter-charters" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Helicopter Charters</a></li>
               <li><a href="/speedboat-transfers" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Speedboat Transfers</a></li>
@@ -48,10 +56,14 @@ const Footer = () => {
 
           {/* Column 3 - Partners */}
           <div>
-            <h3 className="font-primary text-lg font-bold text-luxe-white-primary mb-4">
-              Partners
-            </h3>
-            <ul className="space-y-3">
+            <button 
+              onClick={() => setPartnersOpen(!partnersOpen)}
+              className="flex items-center justify-between w-full md:block font-primary text-lg font-bold text-luxe-white-primary mb-4"
+            >
+              <span>Partners</span>
+              <ChevronDown className={`w-5 h-5 md:hidden transition-transform ${partnersOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <ul className={`space-y-3 ${partnersOpen ? 'block' : 'hidden md:block'}`}>
               <li><a href="/car-owner-partnership" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Car Owner Partnership</a></li>
               <li><a href="/chauffeur-application" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Chauffeur Application</a></li>
               <li><a href="/corporate-accounts" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Corporate Accounts</a></li>
@@ -61,10 +73,14 @@ const Footer = () => {
 
           {/* Column 4 - Contact */}
           <div>
-            <h3 className="font-primary text-lg font-bold text-luxe-white-primary mb-4">
-              Contact
-            </h3>
-            <ul className="space-y-3">
+            <button 
+              onClick={() => setContactOpen(!contactOpen)}
+              className="flex items-center justify-between w-full md:block font-primary text-lg font-bold text-luxe-white-primary mb-4"
+            >
+              <span>Contact</span>
+              <ChevronDown className={`w-5 h-5 md:hidden transition-transform ${contactOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <ul className={`space-y-3 ${contactOpen ? 'block' : 'hidden md:block'}`}>
               <li className="font-secondary text-luxe-gray-footer">
                 Phone: +254 700 123 456
               </li>
@@ -86,8 +102,8 @@ const Footer = () => {
               © 2024 LuxeRide Kenya. All rights reserved.
             </p>
 
-            {/* Policy Links */}
-            <div className="flex space-x-6">
+            {/* Policy Links - Hidden on mobile to save space */}
+            <div className="hidden md:flex space-x-6">
               <a href="/car-owner-partnership" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Car Owner Partnership</a>
               <a href="/chauffeur-application" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Chauffeur Application</a>
               <a href="/corporate-accounts" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Corporate Accounts</a>

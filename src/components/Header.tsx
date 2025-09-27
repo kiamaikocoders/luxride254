@@ -18,8 +18,8 @@ const Header = () => {
         <Link to="/" className="flex items-center h-16 mr-6">
           <img src="/luxride-logo.png" alt="LuxeRide Logo" className="h-12 w-auto" style={{ minWidth: 48, background: 'none', border: 'none', boxShadow: 'none' }} />
           </Link>
-        {/* Navigation */}
-        <nav className="flex-1 flex items-center space-x-6">
+        {/* Navigation - Hidden on mobile */}
+        <nav className="hidden md:flex flex-1 items-center space-x-6">
           <Link to="/" className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition">Home</Link>
           <div className="relative group">
             <button className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition flex items-center">Services <span className="ml-1">▼</span></button>
@@ -42,7 +42,7 @@ const Header = () => {
           <Link to="/vip-membership" className="text-luxe-gold-accent font-semibold px-3 py-2 hover:text-white transition">VIP Membership</Link>
         </nav>
         {/* Actions: Apply for VIP Access, Theme Toggle */}
-        <div className="flex items-center space-x-3">
+        <div className="hidden md:flex items-center space-x-3">
           <Button
             variant="premium"
             size="lg"
@@ -60,6 +60,15 @@ const Header = () => {
             <FaSun className="text-luxe-gold-accent" />
           </button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="md:hidden p-2 rounded-lg text-luxe-gold-accent hover:bg-luxe-dark-outline transition-colors"
+          aria-label="Open mobile menu"
+        >
+          <Menu className="h-6 w-6" />
+        </button>
       </div>
       {/* Mobile Menu Overlay */}
       {mobileOpen && (

@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/luxe-button"
 import { ArrowLeft, Anchor, Shield, Clock, Star } from "lucide-react"
 import { Link } from "react-router-dom"
 import speedboatImage from "@/assets/speedboat-transfers.jpg"
-import BookingModal from "@/components/BookingModal";
-import React, { useState } from "react";
+import React from "react";
 
 const SpeedboatTransfers = () => {
-  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className="min-h-screen bg-luxe-dark-primary">
       <Header />
@@ -86,8 +84,10 @@ const SpeedboatTransfers = () => {
                 </div>
 
                 <div className="mt-8">
-                  <Button variant="premium" size="lg" onClick={() => setModalOpen(true)}>
-                    Book Speedboat
+                  <Button variant="premium" size="lg" asChild>
+                    <a href="/vip-membership" className="inline-block">
+                      Learn About VIP Access
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -105,7 +105,6 @@ const SpeedboatTransfers = () => {
       </main>
 
       <Footer />
-      <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} vehicleType="boat" />
     </div>
   )
 }

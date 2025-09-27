@@ -35,22 +35,12 @@ const Index = () => {
 
   useEffect(() => {
     if (!isAdmin) return;
-    let active = true;
-    (async () => {
-      setLoading(true);
-      setError(null);
-      const res = await safeFetchJson("/functions/v1/cx-analytics", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ dateRange, serviceType }),
-      });
-      if (!active) return;
-      if (!res.ok) setError(res.error || "Failed to fetch");
-      else if ((res.data as any)?.cx_insights) setAnalytics((res.data as any).cx_insights);
-      else setError("No analytics found.");
+    // Simulate analytics for landing page demo
+    setLoading(true);
+    setTimeout(() => {
+      setAnalytics("Customer experience analytics would be displayed here in the full application. This is a demo for the landing page.");
       setLoading(false);
-    })();
-    return () => { active = false; };
+    }, 1000);
   }, [isAdmin, dateRange, serviceType, refreshKey]);
 
   const handleRespond = (index: number) => {

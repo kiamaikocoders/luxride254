@@ -66,34 +66,150 @@ export default function ChauffeurApplication() {
   return (
     <div className="min-h-screen bg-luxe-dark-primary text-white">
       <Header />
-      <main className="pt-20 max-w-5xl mx-auto px-4 pb-16">
-        <h1 className="text-4xl font-bold text-luxe-gold-accent mb-6">Apply to Join Us</h1>
-        <p className="text-zinc-300 mb-8">Complete the application below. Only qualified candidates will be contacted for interviews.</p>
+      <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-luxe-gold-accent mb-4">Apply to Join Us</h1>
+          <p className="text-zinc-300 text-lg">Complete the application below. Only qualified candidates will be contacted for interviews.</p>
+        </div>
 
-        {error && <div className="mb-4 text-red-400">{error}</div>}
-        {success && <div className="mb-4 text-green-400">{success}</div>}
+        {error && <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">{error}</div>}
+        {success && <div className="mb-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">{success}</div>}
 
-        <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-zinc-900/60 p-4 md:p-6 rounded-lg">
-          <input name="full_name" required placeholder="Full Name *" className="bg-zinc-800 rounded p-3" />
-          <input name="email" type="email" required placeholder="Email Address *" className="bg-zinc-800 rounded p-3" />
-          <input name="phone" required placeholder="Phone Number *" className="bg-zinc-800 rounded p-3" />
-          <input name="years_experience" type="number" min={0} placeholder="Years of Driving Experience" className="bg-zinc-800 rounded p-3" />
-          <input name="license_number" placeholder="Driving License Number" className="bg-zinc-800 rounded p-3" />
-          <input name="license_category" placeholder="License Category (e.g., BCE)" className="bg-zinc-800 rounded p-3" />
-          <input name="languages" placeholder="Languages Spoken (e.g., English, Swahili)" className="bg-zinc-800 rounded p-3 md:col-span-2" />
-          <textarea name="availability" placeholder="Availability (days/hours)" className="bg-zinc-800 rounded p-3 md:col-span-2" rows={2}></textarea>
-          <textarea name="why_luxeride" placeholder="Why LuxeRide?" className="bg-zinc-800 rounded p-3 md:col-span-2" rows={3}></textarea>
-          <textarea name="salary_expectations" placeholder="Salary Expectations" className="bg-zinc-800 rounded p-3 md:col-span-2" rows={2}></textarea>
-          <div className="md:col-span-2">
-            <label className="block mb-2 text-sm text-zinc-300">Upload Documents (license front/back, CV/resume, passport photo)</label>
-            <input name="documents" type="file" multiple className="block w-full text-sm" />
-          </div>
-          <div className="md:col-span-2">
-            <button disabled={submitting} className="w-full bg-luxe-gold-accent text-black font-bold py-3 rounded">
-              {submitting ? "Submitting…" : "Submit Chauffeur Application"}
-            </button>
-          </div>
-        </form>
+        <div className="bg-white rounded-2xl p-8 shadow-2xl">
+          <form onSubmit={onSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Full Name *</label>
+                <input 
+                  name="full_name" 
+                  required 
+                  placeholder="Enter your full name" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Email Address *</label>
+                <input 
+                  name="email" 
+                  type="email" 
+                  required 
+                  placeholder="Enter your email address" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Phone Number *</label>
+                <input 
+                  name="phone" 
+                  required 
+                  placeholder="Enter your phone number" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Years of Driving Experience</label>
+                <input 
+                  name="years_experience" 
+                  type="number" 
+                  min={0} 
+                  placeholder="Enter years of experience" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Driving License Number</label>
+                <input 
+                  name="license_number" 
+                  placeholder="Enter license number" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">License Category (e.g., BCE)</label>
+                <input 
+                  name="license_category" 
+                  placeholder="Enter license category" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Languages Spoken (e.g., English, Swahili)</label>
+              <input 
+                name="languages" 
+                placeholder="Enter languages you speak" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Availability (days/hours)</label>
+              <textarea 
+                name="availability" 
+                placeholder="Describe your availability" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                rows={3}
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Why LuxeRide?</label>
+              <textarea 
+                name="why_luxeride" 
+                placeholder="Tell us why you want to join LuxeRide" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                rows={4}
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Salary Expectations</label>
+              <textarea 
+                name="salary_expectations" 
+                placeholder="Describe your salary expectations" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                rows={3}
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Upload Documents (license front/back, CV/resume, passport photo)</label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-luxe-gold-accent transition-colors">
+                <div className="space-y-2">
+                  <div className="text-gray-500">
+                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    <label htmlFor="documents" className="cursor-pointer">
+                      <span className="font-medium text-luxe-gold-accent hover:text-luxe-gold-accent/80">Choose Files</span> or drag and drop
+                    </label>
+                    <input 
+                      id="documents" 
+                      name="documents" 
+                      type="file" 
+                      multiple 
+                      className="hidden" 
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <button 
+                disabled={submitting} 
+                className="w-full bg-luxe-gold-accent text-black font-bold py-4 px-6 rounded-lg hover:bg-luxe-gold-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {submitting ? "Submitting Application..." : "Submit Chauffeur Application"}
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
       <Footer />
     </div>

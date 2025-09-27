@@ -69,35 +69,163 @@ export default function CarOwnerPartnership() {
   return (
     <div className="min-h-screen bg-luxe-dark-primary text-white">
       <Header />
-      <main className="pt-20 max-w-5xl mx-auto px-4 pb-16">
-        <h1 className="text-4xl font-bold text-luxe-gold-accent mb-6">Partner With LuxeRide</h1>
-        <p className="text-zinc-300 mb-8">Transform your luxury vehicle into a premium income source. Submit your details below to get started.</p>
+      <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-luxe-gold-accent mb-4">Partner With LuxeRide</h1>
+          <p className="text-zinc-300 text-lg">Transform your luxury vehicle into a premium income source. Submit your details below to get started.</p>
+        </div>
 
-        {error && <div className="mb-4 text-red-400">{error}</div>}
-        {success && <div className="mb-4 text-green-400">{success}</div>}
+        {error && <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">{error}</div>}
+        {success && <div className="mb-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">{success}</div>}
 
-        <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-zinc-900/60 p-4 md:p-6 rounded-lg">
-          <input name="full_name" required placeholder="Full Name *" className="bg-zinc-800 rounded p-3" />
-          <input name="email" type="email" required placeholder="Email Address *" className="bg-zinc-800 rounded p-3" />
-          <input name="phone" required placeholder="Phone Number *" className="bg-zinc-800 rounded p-3" />
-          <input name="vehicle_make" required placeholder="Vehicle Make *" className="bg-zinc-800 rounded p-3" />
-          <input name="vehicle_model" required placeholder="Vehicle Model *" className="bg-zinc-800 rounded p-3" />
-          <input name="vehicle_year" type="number" min={1990} required placeholder="Year *" className="bg-zinc-800 rounded p-3" />
-          <input name="mileage_km" type="number" placeholder="Mileage (KM)" className="bg-zinc-800 rounded p-3" />
-          <input name="location" required placeholder="Location *" className="bg-zinc-800 rounded p-3" />
-          <textarea name="vehicle_condition" placeholder="Vehicle Condition *" className="bg-zinc-800 rounded p-3 md:col-span-2" rows={3}></textarea>
-          <textarea name="availability" placeholder="Availability" className="bg-zinc-800 rounded p-3 md:col-span-2" rows={2}></textarea>
-          <textarea name="expectations" placeholder="Expectations & Questions" className="bg-zinc-800 rounded p-3 md:col-span-2" rows={3}></textarea>
-          <div className="md:col-span-2">
-            <label className="block mb-2 text-sm text-zinc-300">Upload Documents (registration, insurance, photos, service history)</label>
-            <input name="documents" type="file" multiple className="block w-full text-sm" />
-          </div>
-          <div className="md:col-span-2">
-            <button disabled={submitting} className="w-full bg-luxe-gold-accent text-black font-bold py-3 rounded">
-              {submitting ? "Submitting…" : "Submit Partnership Application"}
-            </button>
-          </div>
-        </form>
+        <div className="bg-white rounded-2xl p-8 shadow-2xl">
+          <form onSubmit={onSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Full Name *</label>
+                <input 
+                  name="full_name" 
+                  required 
+                  placeholder="Enter your full name" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Email Address *</label>
+                <input 
+                  name="email" 
+                  type="email" 
+                  required 
+                  placeholder="Enter your email address" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Phone Number *</label>
+                <input 
+                  name="phone" 
+                  required 
+                  placeholder="Enter your phone number" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Vehicle Make *</label>
+                <input 
+                  name="vehicle_make" 
+                  required 
+                  placeholder="Enter vehicle make" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Vehicle Model *</label>
+                <input 
+                  name="vehicle_model" 
+                  required 
+                  placeholder="Enter vehicle model" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Year *</label>
+                <input 
+                  name="vehicle_year" 
+                  type="number" 
+                  min={1990} 
+                  required 
+                  placeholder="Enter vehicle year" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Mileage (KM)</label>
+                <input 
+                  name="mileage_km" 
+                  type="number" 
+                  placeholder="Enter mileage in KM" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Location *</label>
+                <input 
+                  name="location" 
+                  required 
+                  placeholder="Enter your location" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Vehicle Condition *</label>
+              <textarea 
+                name="vehicle_condition" 
+                required 
+                placeholder="Describe your vehicle condition" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                rows={4}
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Availability</label>
+              <textarea 
+                name="availability" 
+                placeholder="Describe your availability" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                rows={3}
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Expectations & Questions</label>
+              <textarea 
+                name="expectations" 
+                placeholder="Share your expectations and any questions" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                rows={4}
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Upload Documents (registration, insurance, photos, service history)</label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-luxe-gold-accent transition-colors">
+                <div className="space-y-2">
+                  <div className="text-gray-500">
+                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    <label htmlFor="documents" className="cursor-pointer">
+                      <span className="font-medium text-luxe-gold-accent hover:text-luxe-gold-accent/80">Choose Files</span> or drag and drop
+                    </label>
+                    <input 
+                      id="documents" 
+                      name="documents" 
+                      type="file" 
+                      multiple 
+                      className="hidden" 
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <button 
+                disabled={submitting} 
+                className="w-full bg-luxe-gold-accent text-black font-bold py-4 px-6 rounded-lg hover:bg-luxe-gold-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {submitting ? "Submitting Application..." : "Submit Partnership Application"}
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
       <Footer />
     </div>

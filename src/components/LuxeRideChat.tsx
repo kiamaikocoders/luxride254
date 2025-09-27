@@ -39,6 +39,20 @@ export default function LuxeRideChat() {
     setInput("");
     setShowQuickReplies(false);
     setLoading(true);
+    
+    // Check if API key is configured
+    console.log("GROQ_API_KEY:", GROQ_API_KEY ? "Present" : "Missing");
+    if (!GROQ_API_KEY) {
+      console.log("Using fallback response - API key not configured");
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Welcome to LuxeRide! I'm here to help with your luxury transportation needs. Our services include executive cars, helicopter charters, and speedboat transfers. You can also learn about our VIP membership program. How can I assist you today?" },
+      ]);
+      setShowQuickReplies(true);
+      setLoading(false);
+      return;
+    }
+    
     try {
       const newMessages = [...messages, { role: "user", content: msg }];
       const res = await fetch(GROQ_API_URL, {
@@ -48,22 +62,119 @@ export default function LuxeRideChat() {
           "Authorization": `Bearer ${GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "mixtral-8x7b-32768",
-          messages: newMessages.map(m => ({ role: m.role === "assistant" ? "assistant" : m.role, content: m.content })),
-          max_tokens: 256,
-          temperature: 0.5,
+          model: "llama-3.1-8b-instant",
+          messages: [
+            { 
+              role: "system", 
+              content: `You are LuxeRide Assistant. You must follow these exact formatting rules:
+
+1. NEVER use asterisks (*) or double asterisks (**) 
+2. NEVER use markdown formatting
+3. ALWAYS use numbered lists (1., 2., 3.) for main items
+4. ALWAYS use bullet points (-) for sub-items
+5. ALWAYS use proper line breaks between sections
+6. Use plain text only
+
+You are a helpful AI for LuxeRide - Kenya's premier luxury transportation service.
+
+COMPANY OVERVIEW:
+LuxeRide is Kenya's leading luxury mobility platform offering premium transportation services including executive cars, helicopter charters, and speedboat transfers.
+
+SERVICES:
+1. EXECUTIVE CARS:
+   - Luxury vehicles: Mercedes S-Class, BMW 7 Series, and other premium vehicles
+   - Professional chauffeurs: Experienced, licensed, and background-checked drivers
+   - Features: Premium amenities, safety, comfort
+
+2. HELICOPTER CHARTERS:
+   - Modern fleet with state-of-the-art helicopters and panoramic views
+   - Certified pilots: Highly trained and experienced aviation professionals
+   - On-demand service with quick response times
+   - Scenic routes with breathtaking aerial views of Kenya's landscapes
+
+3. SPEEDBOAT TRANSFERS:
+   - Premium vessels: High-performance speedboats with luxury amenities
+   - Licensed captains: Experienced marine professionals with safety certifications
+   - Fast transfers: Quick and efficient water transportation
+   - Coastal adventures: Explore Kenya's beautiful coastline and waterways
+
+4. VIP MEMBERSHIP:
+   - Gold Tier: KSH 150,000/month
+     * 20 rides included per month
+     * Priority booking
+     * Basic concierge support
+     * Access to luxury fleet
+     * Standard response time
+     * No family members included
+   
+   - Platinum Tier: KSH 300,000/month
+     * 40 rides included per month
+     * VIP priority booking
+     * 24/7 dedicated concierge
+     * Premium fleet access
+     * Fast response time
+     * Up to 3 family members
+     * Optional security detail
+   
+   - Diamond Tier: KSH 500,000/month
+     * 60 rides included per month
+     * Guaranteed availability
+     * Personal account manager
+     * Exclusive vehicle access
+     * Instant response time
+     * Unlimited family members
+     * Security detail included
+     * Custom route planning
+
+PARTNERSHIP OPPORTUNITIES:
+- Car Owner Partnership: Transform luxury vehicles into income sources
+- Chauffeur Application: Join our professional driver network
+- Security Application: Provide security services for VIP clients
+- Corporate Accounts: Business transportation solutions
+- Affiliate Program: Referral opportunities
+
+CRITICAL FORMATTING RULES:
+- NEVER use asterisks (*) or double asterisks (**) for bold text
+- NEVER use markdown formatting of any kind
+- ALWAYS use numbered lists (1., 2., 3.) for main items
+- ALWAYS use bullet points (-) for sub-items
+- ALWAYS structure responses with clear headings
+- ALWAYS use proper line breaks and spacing
+- ALWAYS present information in organized, easy-to-read format
+- Use plain text only - no special formatting characters whatsoever` 
+            },
+            ...newMessages.map(m => ({ role: m.role === "assistant" ? "assistant" : m.role, content: m.content }))
+          ],
+          max_tokens: 400,
+          temperature: 0.3,
         }),
       });
+      
+      if (!res.ok) {
+        const errorDetails = await res.json().catch(() => ({}));
+        console.error('Groq API Error Details:', errorDetails);
+        throw new Error(`API request failed: ${res.status} ${res.statusText} - ${JSON.stringify(errorDetails)}`);
+      }
+      
       const data = await res.json();
+      console.log('Groq API Response:', data);
+      const aiResponse = data?.choices?.[0]?.message?.content;
+      
+      if (!aiResponse || aiResponse.trim() === "") {
+        throw new Error("Empty response from AI");
+      }
+      
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data?.choices?.[0]?.message?.content || "Sorry, I didn't understand. Please rephrase or ask about LuxeRide services." },
+        { role: "assistant", content: aiResponse },
       ]);
       setShowQuickReplies(true);
     } catch (e) {
+      console.error("Chatbot error:", e);
+      console.error("Error details:", e.message);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Sorry, our assistant is temporarily unavailable. Please try again later." },
+        { role: "assistant", content: `I encountered an error: ${e.message}. Welcome to LuxeRide! I'm here to help with your luxury transportation needs. Our services include executive cars, helicopter charters, and speedboat transfers. You can also learn about our VIP membership program. How can I assist you today?` },
       ]);
     } finally {
       setLoading(false);

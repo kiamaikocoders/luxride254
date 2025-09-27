@@ -33,9 +33,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
   const [feedbackLoading, setFeedbackLoading] = useState(false);
   const [feedbackError, setFeedbackError] = useState<string | null>(null);
   const [feedbackSuccess, setFeedbackSuccess] = useState(false);
-  const [dynamicPrice, setDynamicPrice] = useState(null);
-  const [pricingLoading, setPricingLoading] = useState(false);
-  const [recommendations, setRecommendations] = useState(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,35 +40,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
     setError(null);
     setResult(null);
     try {
-      // Call Smart Dispatch Edge Function
-      const dispatchRes = await fetch(`${SUPABASE_FUNCTIONS_URL}/smart-dispatch`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pickup_location: pickup,
-          dropoff_location: dropoff,
-          user_id: "demo-user", // Replace with real user ID
-        }),
-      });
-      const dispatchData = await dispatchRes.json();
-      if (!dispatchRes.ok) throw new Error(dispatchData.error || "Dispatch failed");
-
-      // Optionally call Dynamic Pricing
-      const pricingRes = await fetch(`${SUPABASE_FUNCTIONS_URL}/dynamic-pricing`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ride_details: { pickup, dropoff, vehicle_type: type },
-          supply: 10, demand: 20, event_context: "None"
-        }),
-      });
-      const pricingData = await pricingRes.json();
-      if (!pricingRes.ok) throw new Error(pricingData.error || "Pricing failed");
-
+      // Simulate booking for landing page demo
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
+      
       setResult({
-        assigned_vehicle: dispatchData.assigned_vehicle,
-        ai_message: dispatchData.message,
-        price: pricingData.dynamic_price,
+        assigned_vehicle: `Luxury ${type} - Confirmed`,
+        message: "Your ride has been booked successfully! Download our VIP app to track your ride in real-time.",
+        price: "Contact us for VIP pricing",
       });
       setShowFeedback(true);
     } catch (err: unknown) {
@@ -106,39 +81,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
     }
   };
 
-  // Dynamic Pricing integration
-  const getDynamicPrice = async (ride_details, supply, demand, event_context) => {
-    setPricingLoading(true);
-    setDynamicPrice("Loading...");
-    try {
-      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/dynamic-pricing`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ride_details, supply, demand, event_context }),
-      });
-      const data = await res.json();
-      setDynamicPrice(data.dynamic_price || data.message);
-    } catch {
-      setDynamicPrice("Error fetching dynamic price.");
-    }
-    setPricingLoading(false);
-  };
-
-  // Personalization/Recommendations integration
-  const getRecommendations = async (user_id, context) => {
-    setRecommendations("Loading...");
-    try {
-      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/recommendation`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id, context }),
-      });
-      const data = await res.json();
-      setRecommendations(data.recommendations || data.message);
-    } catch {
-      setRecommendations("Error fetching recommendations.");
-    }
-  };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -187,34 +129,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ open, onClose, vehicleType 
         {error && <div className="text-red-500 mt-2">{error}</div>}
         {result && !showFeedback && (
           <div className="mt-4 p-4 bg-luxe-dark-outline rounded">
-            <div><strong>Assigned Vehicle:</strong> {result.assigned_vehicle}</div>
-            <div><strong>AI Message:</strong> {result.ai_message}</div>
-            <div><strong>Price:</strong> {result.price}</div>
-          </div>
-        )}
-        <button
-          className="bg-luxe-gold-accent text-black font-bold px-3 py-1 rounded mt-2"
-          onClick={() => getDynamicPrice({ ride_details: { pickup, dropoff, vehicle_type: type }, supply: 10, demand: 20, event_context: "None" }, 10, 20, "None")}
-          disabled={pricingLoading}
-        >
-          Get Dynamic Price
-        </button>
-        {dynamicPrice && (
-          <div className="mt-2 bg-zinc-800 text-luxe-gold-accent rounded p-2">
-            {dynamicPrice}
-          </div>
-        )}
-        <button
-          className="bg-luxe-gold-accent text-black font-bold px-3 py-1 rounded mt-2"
-          onClick={() => getRecommendations("demo-user", { ride_details: { pickup, dropoff, vehicle_type: type } })}
-        >
-          Get Personalized Suggestions
-        </button>
-        {recommendations && (
-          <div className="mt-2 bg-zinc-800 text-luxe-gold-accent rounded p-2">
-            {typeof recommendations === 'string'
-              ? recommendations
-              : JSON.stringify(recommendations)}
+            <div><strong>Vehicle:</strong> {result.assigned_vehicle}</div>
+            <div><strong>Status:</strong> {result.message}</div>
+            <div><strong>Pricing:</strong> {result.price}</div>
           </div>
         )}
       </DialogContent>

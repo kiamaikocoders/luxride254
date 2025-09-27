@@ -81,21 +81,13 @@ const TeamBookings = () => {
   // Tab filtering
   const filteredTrips = trips.filter((trip) => getTripCategory(trip) === activeTab);
 
-  const SUPABASE_FUNCTIONS_URL = "https://eepcddbdvfhmeouzkpsb.functions.supabase.co";
-  // Smart Dispatch integration
+  // Simple dispatch for landing page demo
   const getDispatchRecommendation = async (pickup_location, dropoff_location, user_id, bookingId) => {
     setDispatchResult(prev => ({ ...prev, [bookingId]: "Loading..." }));
-    try {
-      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/smart-dispatch`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pickup_location, dropoff_location, user_id }),
-      });
-      const data = await res.json();
-      setDispatchResult(prev => ({ ...prev, [bookingId]: data.assigned_vehicle || data.message }));
-    } catch (e) {
-      setDispatchResult(prev => ({ ...prev, [bookingId]: 'Error fetching dispatch recommendation.' }));
-    }
+    // Simulate dispatch for landing page
+    setTimeout(() => {
+      setDispatchResult(prev => ({ ...prev, [bookingId]: "Luxury Vehicle Assigned - Contact VIP Support" }));
+    }, 1500);
   };
 
   // UI
