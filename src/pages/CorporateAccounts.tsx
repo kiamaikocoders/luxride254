@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
 import { supabase } from "@/lib/supabaseClient";
 import { uploadFilesToApplicationsBucket } from "@/lib/storage";
 import { validateEmail, validatePhoneKe, isNonEmpty } from "@/lib/validation";
@@ -68,16 +68,16 @@ export default function CorporateAccounts() {
   }
 
   return (
-    <div className="min-h-screen bg-luxe-dark-primary text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
       <Header />
       <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-luxe-gold-accent mb-4">Apply for Corporate Account</h1>
-          <p className="text-zinc-300 text-lg">Join businesses that trust LuxeRide for premium transportation solutions.</p>
+          <h1 className="text-4xl font-bold text-yellow-400 mb-4">Apply for Corporate Account</h1>
+          <p className="text-gray-600 text-lg">Join businesses that trust LuxeRide for premium transportation solutions.</p>
         </div>
 
-        {error && <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">{error}</div>}
-        {success && <div className="mb-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">{success}</div>}
+        {error && <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">{error}</div>}
+        {success && <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600">{success}</div>}
 
         <div className="bg-white rounded-2xl p-8 shadow-2xl">
           <form onSubmit={onSubmit} className="space-y-6">
@@ -88,7 +88,7 @@ export default function CorporateAccounts() {
                   name="company_name" 
                   required 
                   placeholder="Enter company name" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -97,7 +97,7 @@ export default function CorporateAccounts() {
                   name="industry" 
                   required 
                   placeholder="Enter industry" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -105,7 +105,7 @@ export default function CorporateAccounts() {
                 <input 
                   name="employees_range" 
                   placeholder="Enter employee range" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -113,7 +113,7 @@ export default function CorporateAccounts() {
                 <input 
                   name="primary_location" 
                   placeholder="Enter primary location" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -122,7 +122,7 @@ export default function CorporateAccounts() {
                   name="contact_name" 
                   required 
                   placeholder="Enter contact person name" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -132,7 +132,7 @@ export default function CorporateAccounts() {
                   type="email" 
                   required 
                   placeholder="Enter contact email" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -141,7 +141,7 @@ export default function CorporateAccounts() {
                   name="contact_phone" 
                   required 
                   placeholder="Enter contact phone" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
             </div>
@@ -153,12 +153,10 @@ export default function CorporateAccounts() {
                   "Executive Car Services",
                   "Airport Transfers",
                   "Event Transportation",
-                  "Helicopter Charters",
-                  "Marine Transport",
                   "Roadshow Support",
                 ].map((label) => (
                   <label key={label} className="flex items-center space-x-3 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" name="services_required" value={label} className="h-4 w-4 text-luxe-gold-accent focus:ring-luxe-gold-accent border-gray-300 rounded" />
+                    <input type="checkbox" name="services_required" value={label} className="h-4 w-4 text-yellow-400 focus:ring-yellow-400 border-gray-300 rounded" />
                     <span className="text-sm text-gray-700">{label}</span>
                   </label>
                 ))}
@@ -205,7 +203,7 @@ export default function CorporateAccounts() {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Upload Company Documents (registration, tax compliance, profile)</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-luxe-gold-accent transition-colors">
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-yellow-400 transition-colors">
                 <div className="space-y-2">
                   <div className="text-gray-500">
                     <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -214,7 +212,7 @@ export default function CorporateAccounts() {
                   </div>
                   <div className="text-sm text-gray-600">
                     <label htmlFor="documents" className="cursor-pointer">
-                      <span className="font-medium text-luxe-gold-accent hover:text-luxe-gold-accent/80">Choose Files</span> or drag and drop
+                      <span className="font-medium text-yellow-400 hover:text-yellow-300">Choose Files</span> or drag and drop
                     </label>
                     <input 
                       id="documents" 
@@ -233,7 +231,7 @@ export default function CorporateAccounts() {
             <div className="pt-4">
               <button 
                 disabled={submitting} 
-                className="w-full bg-luxe-gold-accent text-black font-bold py-4 px-6 rounded-lg hover:bg-luxe-gold-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-yellow-400 text-gray-900 font-bold py-4 px-6 rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? "Submitting Application..." : "Submit Corporate Account Application"}
               </button>

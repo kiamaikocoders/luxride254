@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeRide - Premium Transportation Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom gold color scheme */
+        .bg-luxe-gold { background-color: #D4AF37; }
+        .bg-luxe-gold-light { background-color: #F5E6A3; }
+        .text-luxe-gold { color: #D4AF37; }
+        .border-luxe-gold { border-color: #D4AF37; }
+        .hover\:bg-luxe-gold:hover { background-color: #C5A028; }
+        
+        /* Smooth animations */
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)),
+                        url('https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .luxury-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+        
+        .luxury-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .fleet-card {
+            transition: all 0.3s ease;
+        }
+        
+        .fleet-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-3xl font-light tracking-wide">
+                            <span class="text-gray-900">Luxe</span><span class="text-luxe-gold font-medium">Ride</span>
+                        </span>
+                        <div class="text-xs text-gray-500 tracking-wider">PREMIUM TRANSPORTATION</div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-gray-700 hover:text-luxe-gold transition duration-150">Services</a>
+                    <a href="#fleet" class="text-gray-700 hover:text-luxe-gold transition duration-150">Our Fleet</a>
+                    <a href="#experience" class="text-gray-700 hover:text-luxe-gold transition duration-150">Experience</a>
+                    <a href="#contact" class="bg-luxe-gold text-white px-6 py-2 rounded-md hover:bg-luxe-gold font-medium transition duration-150">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-light text-white mb-6 tracking-tight">
+                    Elevating the<br>
+                    <span class="text-luxe-gold font-medium">Ride Experience</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-10">
+                    Premium transportation with professional chauffeurs and luxury vehicles across Kenya's key markets
+                </p>
+                <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+                    <a href="#services" class="inline-block bg-luxe-gold text-white px-8 py-4 rounded-md text-lg font-medium hover:bg-luxe-gold transition duration-150">
+                        Explore Services
+                    </a>
+                    <a href="#download" class="inline-block border-2 border-white text-white px-8 py-4 rounded-md text-lg font-medium hover:bg-white hover:text-gray-900 transition duration-150">
+                        Download App
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-light text-gray-900 mb-4">Premium Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Four integrated luxury transportation solutions designed for discerning clients
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="luxury-card rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-luxe-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-4">Premium Ride-Hailing</h3>
+                    <p class="text-gray-600 mb-4">On-demand luxury transportation with professional chauffeurs for executive travel and special occasions.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Mercedes S-Class & BMW 7 Series</li>
+                        <li>• Professional Chauffeurs</li>
+                        <li>• Wi-Fi & Refreshments</li>
+                        <li>• Airport Transfers</li>
+                        <li>• Corporate Accounts</li>
+                    </ul>
+                </div>
+                
+                <div class="luxury-card rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-luxe-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-4">Car Hire Aggregation</h3>
+                    <p class="text-gray-600 mb-4">Unified platform connecting you with Kenya's premier luxury fleet operators through seamless booking.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Bell & Airbus Helicopters</li>
+                        <li>• Experienced Pilots</li>
+                        <li>• Scenic Route Options</li>
+                        <li>• Emergency Medical</li>
+                        <li>• VIP Transfers</li>
+                    </ul>
+                </div>
+                
+                <div class="luxury-card rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-luxe-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-4">On-Spot Luxury Hire</h3>
+                    <p class="text-gray-600 mb-4">Flexible 1-7 day luxury vehicle access with digital documentation and 24/7 support.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Luxury Speedboats</li>
+                        <li>• Licensed Captains</li>
+                        <li>• Safety Equipment</li>
+                        <li>• Coastal Transfers</li>
+                        <li>• Island Hopping</li>
+                    </ul>
+                </div>
+                
+                <div class="luxury-card rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-luxe-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-4">Event Transportation</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive luxury solutions for weddings, corporate events, and special occasions with coordination.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Wedding Transportation</li>
+                        <li>• Corporate Events</li>
+                        <li>• Special Occasions</li>
+                        <li>• Group Coordination</li>
+                        <li>• Event Planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section id="fleet" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-light text-gray-900 mb-4">Our Luxury Fleet</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Meticulously curated vehicles across three distinct luxury categories
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="luxury-card rounded-lg overflow-hidden fleet-card">
+                    <div class="h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Executive Sedan" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-medium mb-4">Executive Sedan Class</h3>
+                        <p class="text-gray-600 mb-4">BMW 5 Series, Mercedes-Benz E-Class, Audi A6</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Premium leather interiors
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Wi-Fi connectivity
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Mobile device charging
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Climate control
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <span class="text-2xl font-bold text-luxe-gold">From KES 6,500</span>
+                            <span class="text-gray-500">/hour</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="luxury-card rounded-lg overflow-hidden fleet-card">
+                    <div class="h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Luxury SUV" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-medium mb-4">Luxury SUV Category</h3>
+                        <p class="text-gray-600 mb-4">BMW X7, Mercedes-Benz GLS, Range Rover</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                6-7 passenger capacity
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Privacy glass
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Premium entertainment
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                All-terrain capability
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <span class="text-2xl font-bold text-luxe-gold">From KES 7,200</span>
+                            <span class="text-gray-500">/hour</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="luxury-card rounded-lg overflow-hidden fleet-card">
+                    <div class="h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Ultra-Luxury" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-medium mb-4">Ultra-Luxury Tier</h3>
+                        <p class="text-gray-600 mb-4">Mercedes-Maybach, Bentley Flying Spur</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Executive rear seating
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Champagne cooler
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Massage seats
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-luxe-gold mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                Personal concierge
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <span class="text-2xl font-bold text-luxe-gold">From KES 12,000</span>
+                            <span class="text-gray-500">/hour</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-light mb-4">The LuxeRide Difference</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Every journey meticulously crafted to exceed expectations
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-light mb-6">Professional Excellence</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-luxe-gold mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <p class="text-gray-300">Minimum 5 years professional driving experience with background checks and certification</p>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-luxe-gold mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <p class="text-gray-300">Formal chauffeur certification and etiquette training from international standards</p>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-luxe-gold mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <p class="text-gray-300">Regular performance evaluations and standards maintenance with customer feedback integration</p>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-luxe-gold mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <p class="text-gray-300">Language proficiency and cultural competency for international clientele</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h4 class="text-xl font-medium mb-4">Service Areas</h4>
+                    <div class="grid grid-cols-2 gap-4 text-gray-300">
+                        <div>• Nairobi</div>
+                        <div>• Mombasa</div>
+                        <div>• Kisumu</div>
+                        <div>• Eldoret</div>
+                        <div>• Migori</div>
+                        <div>• Intercity Routes</div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-700">
+                        <h5 class="font-medium mb-2">24/7 Availability</h5>
+                        <p class="text-sm text-gray-400">Round-the-clock booking and customer support with dedicated concierge service</p>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-700">
+                        <h5 class="font-medium mb-2">Safety Standards</h5>
+                        <p class="text-sm text-gray-400">All vehicles fully insured with comprehensive coverage and regular safety inspections</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="py-20 bg-luxe-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-light text-white mb-6">Experience Luxury Transportation</h2>
+            <p class="text-xl text-gray-100 mb-10 max-w-3xl mx-auto">
+                Download the LuxeRide app now and transform your travel experience across Kenya
+            </p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+                <a href="#" class="inline-block bg-white text-gray-900 px-8 py-4 rounded-md text-lg font-medium hover:bg-gray-100 transition duration-150">
+                    Download for iOS
+                </a>
+                <a href="#" class="inline-block bg-gray-900 text-white px-8 py-4 rounded-md text-lg font-medium hover:bg-gray-800 transition duration-150">
+                    Download for Android
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-light text-gray-900 mb-4">Get In Touch</h2>
+                <p class="text-xl text-gray-600">
+                    Ready to experience premium transportation? Contact us today.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-medium mb-6">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-luxe-gold mr-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                            <span>info@luxeride.org</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-luxe-gold mr-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                            </svg>
+                            <span>+254 (0) 700 000 000</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-luxe-gold mr-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Nairobi, Kenya</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-medium mb-4">For Vehicle Owners</h4>
+                        <p class="text-gray-600 mb-4">
+                            Join our network and monetize your luxury vehicle during idle periods. We offer competitive rates and flexible terms.
+                        </p>
+                        <a href="#" class="text-luxe-gold hover:underline">Learn about partnerships →</a>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-8">
+                    <h3 class="text-2xl font-medium mb-6">Send us a Message</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-luxe-gold focus:border-luxe-gold">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-luxe-gold focus:border-luxe-gold">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Service Interest</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-luxe-gold focus:border-luxe-gold">
+                                <option>Premium Ride-Hailing</option>
+                                <option>Car Hire Services</option>
+                                <option>Event Transportation</option>
+                                <option>Vehicle Partnership</option>
+                                <option>Corporate Services</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-luxe-gold focus:border-luxe-gold"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-luxe-gold text-white px-6 py-3 rounded-md font-medium hover:bg-luxe-gold transition duration-150">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="mb-4">
+                        <span class="text-2xl font-light tracking-wide">
+                            <span class="text-white">Luxe</span><span class="text-luxe-gold font-medium">Ride</span>
+                        </span>
+                        <div class="text-xs text-gray-400 tracking-wider">PREMIUM TRANSPORTATION</div>
+                    </div>
+                    <p class="text-gray-400">
+                        Elevating the ride-hailing experience across Kenya with luxury vehicles and professional service.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-150">Premium Ride-Hailing</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Car Hire Aggregation</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">On-Spot Luxury Hire</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Event Transportation</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Markets</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Nairobi</li>
+                        <li>Mombasa</li>
+                        <li>Kisumu</li>
+                        <li>Eldoret</li>
+                        <li>Migori</li>
+                        <li>Intercity Routes</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Connect</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-150">Download App</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Vehicle Partnerships</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Corporate Services</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2024 LuxeRide. All rights reserved. | Premium Transportation Across Kenya
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.luxury-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

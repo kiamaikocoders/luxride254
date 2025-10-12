@@ -1,5 +1,5 @@
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import Header from "@/components/landing/Header"
+import Footer from "@/components/landing/Footer"
 import { Button } from "@/components/ui/luxe-button"
 import { ArrowLeft, Plane, Shield, Clock, Star } from "lucide-react"
 import { Link } from "react-router-dom"

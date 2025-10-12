@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
 import { supabase } from "@/lib/supabaseClient";
 import { uploadFilesToApplicationsBucket } from "@/lib/storage";
 import { validateEmail, validatePhoneKe, isNonEmpty } from "@/lib/validation";
@@ -67,16 +67,16 @@ export default function CarOwnerPartnership() {
   }
 
   return (
-    <div className="min-h-screen bg-luxe-dark-primary text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
       <Header />
       <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-luxe-gold-accent mb-4">Partner With LuxeRide</h1>
-          <p className="text-zinc-300 text-lg">Transform your luxury vehicle into a premium income source. Submit your details below to get started.</p>
+          <h1 className="text-4xl font-bold text-yellow-400 mb-4">Partner With LuxeRide</h1>
+          <p className="text-gray-600 text-lg">Transform your luxury vehicle into a premium income source. Submit your details below to get started.</p>
         </div>
 
-        {error && <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">{error}</div>}
-        {success && <div className="mb-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">{success}</div>}
+        {error && <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">{error}</div>}
+        {success && <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600">{success}</div>}
 
         <div className="bg-white rounded-2xl p-8 shadow-2xl">
           <form onSubmit={onSubmit} className="space-y-6">
@@ -87,7 +87,7 @@ export default function CarOwnerPartnership() {
                   name="full_name" 
                   required 
                   placeholder="Enter your full name" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -97,7 +97,7 @@ export default function CarOwnerPartnership() {
                   type="email" 
                   required 
                   placeholder="Enter your email address" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -106,7 +106,7 @@ export default function CarOwnerPartnership() {
                   name="phone" 
                   required 
                   placeholder="Enter your phone number" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -115,7 +115,7 @@ export default function CarOwnerPartnership() {
                   name="vehicle_make" 
                   required 
                   placeholder="Enter vehicle make" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -124,7 +124,7 @@ export default function CarOwnerPartnership() {
                   name="vehicle_model" 
                   required 
                   placeholder="Enter vehicle model" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -135,7 +135,7 @@ export default function CarOwnerPartnership() {
                   min={1990} 
                   required 
                   placeholder="Enter vehicle year" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -144,7 +144,7 @@ export default function CarOwnerPartnership() {
                   name="mileage_km" 
                   type="number" 
                   placeholder="Enter mileage in KM" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -153,7 +153,7 @@ export default function CarOwnerPartnership() {
                   name="location" 
                   required 
                   placeholder="Enter your location" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
             </div>
@@ -191,7 +191,7 @@ export default function CarOwnerPartnership() {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Upload Documents (registration, insurance, photos, service history)</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-luxe-gold-accent transition-colors">
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-yellow-400 transition-colors">
                 <div className="space-y-2">
                   <div className="text-gray-500">
                     <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -200,7 +200,7 @@ export default function CarOwnerPartnership() {
                   </div>
                   <div className="text-sm text-gray-600">
                     <label htmlFor="documents" className="cursor-pointer">
-                      <span className="font-medium text-luxe-gold-accent hover:text-luxe-gold-accent/80">Choose Files</span> or drag and drop
+                      <span className="font-medium text-yellow-400 hover:text-yellow-300">Choose Files</span> or drag and drop
                     </label>
                     <input 
                       id="documents" 
@@ -219,7 +219,7 @@ export default function CarOwnerPartnership() {
             <div className="pt-4">
               <button 
                 disabled={submitting} 
-                className="w-full bg-luxe-gold-accent text-black font-bold py-4 px-6 rounded-lg hover:bg-luxe-gold-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-yellow-400 text-gray-900 font-bold py-4 px-6 rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? "Submitting Application..." : "Submit Partnership Application"}
               </button>

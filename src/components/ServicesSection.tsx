@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/luxe-button"
 import { ArrowRight } from "lucide-react"
 import { Link } from "react-router-dom"
 import executiveImage from "@/assets/executive-cars.jpg"
-import helicopterImage from "@/assets/helicopter-charters.jpg"
-import speedboatImage from "@/assets/speedboat-transfers.jpg"
 
 const ServicesSection = () => {
   const services = [
@@ -20,32 +18,6 @@ const ServicesSection = () => {
       ],
       link: "/executive-cars"
     },
-    {
-      title: "Helicopter Charters",
-      image: helicopterImage,
-      description: "Soar above traffic with our luxury helicopter charter service for ultimate convenience and prestige.",
-      features: [
-        "Bell & Airbus Helicopters",
-        "Experienced Pilots",
-        "Scenic Route Options",
-        "Emergency Medical",
-        "VIP Transfers"
-      ],
-      link: "/helicopter-charters"
-    },
-    {
-      title: "Speedboat Transfers",
-      image: speedboatImage,
-      description: "Navigate Kenya's beautiful coastline and lakes with our premium speedboat transfer service.",
-      features: [
-        "Luxury Speedboats",
-        "Licensed Captains",
-        "Safety Equipment",
-        "Coastal Transfers",
-        "Island Hopping"
-      ],
-      link: "/speedboat-transfers"
-    }
   ]
 
   return (

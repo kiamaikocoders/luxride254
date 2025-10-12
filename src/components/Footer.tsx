@@ -67,7 +67,6 @@ const Footer = () => {
               <li><a href="/car-owner-partnership" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Car Owner Partnership</a></li>
               <li><a href="/chauffeur-application" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Chauffeur Application</a></li>
               <li><a href="/corporate-accounts" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Corporate Accounts</a></li>
-              <li><a href="/affiliate-program" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Affiliate Program</a></li>
             </ul>
           </div>
 
@@ -107,7 +106,6 @@ const Footer = () => {
               <a href="/car-owner-partnership" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Car Owner Partnership</a>
               <a href="/chauffeur-application" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Chauffeur Application</a>
               <a href="/corporate-accounts" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Corporate Accounts</a>
-              <a href="/affiliate-program" className="font-secondary text-sm text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Affiliate Program</a>
             </div>
           </div>
         </div>

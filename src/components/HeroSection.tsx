@@ -25,8 +25,8 @@ const HeroSection = () => {
 
           {/* Sub-headline */}
           <p className="font-secondary text-lg md:text-xl text-luxe-gray-secondary mb-8 max-w-3xl mx-auto leading-relaxed">
-            Experience Kenya's first luxury mobility platform offering executive cars, 
-            helicopter charters, and speedboat transfers with unmatched sophistication.
+            Experience Kenya's first luxury mobility platform offering executive cars 
+            with unmatched sophistication and premium service.
           </p>
 
           {/* Value Propositions */}

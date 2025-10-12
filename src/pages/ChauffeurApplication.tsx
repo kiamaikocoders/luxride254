@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
 import { supabase } from "@/lib/supabaseClient";
 import { uploadFilesToApplicationsBucket } from "@/lib/storage";
 import { validateEmail, validatePhoneKe, isNonEmpty } from "@/lib/validation";
@@ -64,16 +64,16 @@ export default function ChauffeurApplication() {
   }
 
   return (
-    <div className="min-h-screen bg-luxe-dark-primary text-white">
+    <div className="min-h-screen bg-gray-50">
       <Header />
-      <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
+      <main className="pt-24 max-w-4xl mx-auto px-4 pb-16">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-luxe-gold-accent mb-4">Apply to Join Us</h1>
-          <p className="text-zinc-300 text-lg">Complete the application below. Only qualified candidates will be contacted for interviews.</p>
+          <h1 className="text-4xl font-bold text-yellow-400 mb-4">Apply to Join Us</h1>
+          <p className="text-gray-600 text-lg">Complete the application below. Only qualified candidates will be contacted for interviews.</p>
         </div>
 
-        {error && <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">{error}</div>}
-        {success && <div className="mb-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">{success}</div>}
+        {error && <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">{error}</div>}
+        {success && <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600">{success}</div>}
 
         <div className="bg-white rounded-2xl p-8 shadow-2xl">
           <form onSubmit={onSubmit} className="space-y-6">
@@ -84,7 +84,7 @@ export default function ChauffeurApplication() {
                   name="full_name" 
                   required 
                   placeholder="Enter your full name" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -94,7 +94,7 @@ export default function ChauffeurApplication() {
                   type="email" 
                   required 
                   placeholder="Enter your email address" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -103,7 +103,7 @@ export default function ChauffeurApplication() {
                   name="phone" 
                   required 
                   placeholder="Enter your phone number" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -113,7 +113,7 @@ export default function ChauffeurApplication() {
                   type="number" 
                   min={0} 
                   placeholder="Enter years of experience" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -121,7 +121,7 @@ export default function ChauffeurApplication() {
                 <input 
                   name="license_number" 
                   placeholder="Enter license number" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
               <div className="space-y-2">
@@ -129,7 +129,7 @@ export default function ChauffeurApplication() {
                 <input 
                   name="license_category" 
                   placeholder="Enter license category" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
                 />
               </div>
             </div>
@@ -175,7 +175,7 @@ export default function ChauffeurApplication() {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Upload Documents (license front/back, CV/resume, passport photo)</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-luxe-gold-accent transition-colors">
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-yellow-400 transition-colors">
                 <div className="space-y-2">
                   <div className="text-gray-500">
                     <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -184,7 +184,7 @@ export default function ChauffeurApplication() {
                   </div>
                   <div className="text-sm text-gray-600">
                     <label htmlFor="documents" className="cursor-pointer">
-                      <span className="font-medium text-luxe-gold-accent hover:text-luxe-gold-accent/80">Choose Files</span> or drag and drop
+                      <span className="font-medium text-yellow-400 hover:text-yellow-500">Choose Files</span> or drag and drop
                     </label>
                     <input 
                       id="documents" 
@@ -203,7 +203,7 @@ export default function ChauffeurApplication() {
             <div className="pt-4">
               <button 
                 disabled={submitting} 
-                className="w-full bg-luxe-gold-accent text-black font-bold py-4 px-6 rounded-lg hover:bg-luxe-gold-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-yellow-400 text-gray-900 font-bold py-4 px-6 rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? "Submitting Application..." : "Submit Chauffeur Application"}
               </button>

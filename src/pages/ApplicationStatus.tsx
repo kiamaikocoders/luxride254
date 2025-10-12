@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
 import { supabase } from "@/lib/supabaseClient";
 import { Button } from "@/components/ui/luxe-button";
 import { Search, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react";
@@ -27,14 +27,12 @@ export default function ApplicationStatus() {
       const [carOwnerApps, chauffeurApps, securityApps, corporateApps] = await Promise.all([
         supabase.from("car_owner_applications").select("*").eq("email", email),
         supabase.from("chauffeur_applications").select("*").eq("email", email),
-        supabase.from("security_applications").select("*").eq("email", email),
         supabase.from("corporate_account_applications").select("*").eq("contact_email", email)
       ]);
 
       const allApplications = [
         ...(carOwnerApps.data || []).map(app => ({ ...app, type: "Car Owner Partnership" })),
         ...(chauffeurApps.data || []).map(app => ({ ...app, type: "Chauffeur Application" })),
-        ...(securityApps.data || []).map(app => ({ ...app, type: "Security Application" })),
         ...(corporateApps.data || []).map(app => ({ ...app, type: "Corporate Account" }))
       ];
 
@@ -90,112 +88,144 @@ export default function ApplicationStatus() {
   };
 
   return (
-    <div className="min-h-screen bg-luxe-dark-primary text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900 relative">
+      {/* Blurred Background Logo */}
+      <div className="fixed inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 blur-sm"
+          style={{ 
+            backgroundImage: `url('/luxride-logo.svg')`,
+            backgroundSize: '60%',
+            backgroundPosition: 'center'
+          }}
+        />
+      </div>
+      
       <Header />
-      <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-luxe-gold-accent mb-6">Check Application Status</h1>
-          <p className="text-zinc-300 mb-8">Enter your email address to check the status of your applications</p>
+      <main className="pt-20 min-h-screen relative z-10 flex items-center justify-center px-4">
+        {/* Centered Card Container */}
+        <div className="w-full max-w-2xl">
+          <div className="bg-white rounded-xl p-8 shadow-xl border border-gray-100">
+            {/* Icon */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-400/10 rounded-full mb-4">
+                <Search className="h-8 w-8 text-yellow-400" />
+              </div>
+              
+              {/* Title */}
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">Check Application Status</h1>
+              
+              {/* Description */}
+              <p className="text-gray-600 text-lg mb-8">Enter your email address to check the status of your applications</p>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={checkApplications} className="space-y-6">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="flex-1 bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors"
+                  required
+                />
+                <Button 
+                  type="submit" 
+                  disabled={loading}
+                  className="px-8 py-3 bg-yellow-400 text-gray-900 font-semibold hover:bg-yellow-300 disabled:opacity-50 rounded-lg transition-colors flex items-center justify-center gap-2 min-w-[140px]"
+                >
+                  {loading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
+                      Checking...
+                    </>
+                  ) : (
+                    <>
+                      <Search className="h-4 w-4" />
+                      Check Status
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <div className="bg-zinc-900/60 rounded-lg p-6 mb-8">
-          <form onSubmit={checkApplications} className="flex flex-col sm:flex-row gap-4">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              className="flex-1 bg-zinc-800 rounded p-3 text-white placeholder-zinc-400"
-              required
-            />
-            <Button 
-              type="submit" 
-              disabled={loading}
-              className="px-6 py-3 bg-luxe-gold-accent text-black font-bold hover:bg-luxe-gold-accent/90 disabled:opacity-50"
-            >
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
-                  Checking...
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Search className="h-4 w-4" />
-                  Check Status
-                </div>
-              )}
-            </Button>
-          </form>
-        </div>
-
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4 mb-8">
-            <div className="flex items-center gap-2 text-red-400">
-              <AlertCircle className="h-5 w-5" />
-              {error}
+          <div className="mt-6">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="flex items-center gap-2 text-red-600">
+                <AlertCircle className="h-5 w-5" />
+                {error}
+              </div>
             </div>
           </div>
         )}
 
+        {/* Applications Results */}
         {applications.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-luxe-gold-accent mb-6">Your Applications</h2>
-            {applications.map((app, index) => (
-              <div key={index} className="bg-zinc-900/60 rounded-lg p-6 border border-zinc-700">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-white">{app.type}</h3>
-                  <div className={`flex items-center gap-2 ${getStatusColor(app.status)}`}>
-                    {getStatusIcon(app.status)}
-                    <span className="font-medium">{getStatusText(app.status)}</span>
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Your Applications</h2>
+            <div className="space-y-4">
+              {applications.map((app, index) => (
+                <div key={index} className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-semibold text-gray-900">{app.type}</h3>
+                    <div className={`flex items-center gap-2 ${getStatusColor(app.status)}`}>
+                      {getStatusIcon(app.status)}
+                      <span className="font-medium">{getStatusText(app.status)}</span>
+                    </div>
                   </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-gray-500">Name:</span>
+                      <span className="text-gray-900 ml-2">{app.full_name || app.contact_name}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Email:</span>
+                      <span className="text-gray-900 ml-2">{app.email || app.contact_email}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Phone:</span>
+                      <span className="text-gray-900 ml-2">{app.phone || app.contact_phone}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Submitted:</span>
+                      <span className="text-gray-900 ml-2">
+                        {new Date(app.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+
+                  {app.status === "approved" && (
+                    <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded">
+                      <p className="text-green-600 text-sm">
+                        🎉 Congratulations! Your application has been approved. Our team will contact you within 24 hours with next steps.
+                      </p>
+                    </div>
+                  )}
+
+                  {app.status === "under_review" && (
+                    <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded">
+                      <p className="text-yellow-600 text-sm">
+                        ⏳ Your application is currently under review. We'll notify you once the review is complete.
+                      </p>
+                    </div>
+                  )}
+
+                  {app.status === "rejected" && (
+                    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded">
+                      <p className="text-red-600 text-sm">
+                        ❌ Unfortunately, your application was not approved at this time. You may reapply after 30 days.
+                      </p>
+                    </div>
+                  )}
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-zinc-400">Name:</span>
-                    <span className="text-white ml-2">{app.full_name || app.contact_name}</span>
-                  </div>
-                  <div>
-                    <span className="text-zinc-400">Email:</span>
-                    <span className="text-white ml-2">{app.email || app.contact_email}</span>
-                  </div>
-                  <div>
-                    <span className="text-zinc-400">Phone:</span>
-                    <span className="text-white ml-2">{app.phone || app.contact_phone}</span>
-                  </div>
-                  <div>
-                    <span className="text-zinc-400">Submitted:</span>
-                    <span className="text-white ml-2">
-                      {new Date(app.created_at).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-
-                {app.status === "approved" && (
-                  <div className="mt-4 p-3 bg-green-900/20 border border-green-500/50 rounded">
-                    <p className="text-green-400 text-sm">
-                      🎉 Congratulations! Your application has been approved. Our team will contact you within 24 hours with next steps.
-                    </p>
-                  </div>
-                )}
-
-                {app.status === "under_review" && (
-                  <div className="mt-4 p-3 bg-yellow-900/20 border border-yellow-500/50 rounded">
-                    <p className="text-yellow-400 text-sm">
-                      ⏳ Your application is currently under review. We'll notify you once the review is complete.
-                    </p>
-                  </div>
-                )}
-
-                {app.status === "rejected" && (
-                  <div className="mt-4 p-3 bg-red-900/20 border border-red-500/50 rounded">
-                    <p className="text-red-400 text-sm">
-                      ❌ Unfortunately, your application was not approved at this time. You may reapply after 30 days.
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </main>

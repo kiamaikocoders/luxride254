@@ -22,7 +22,6 @@ function useApplications() {
       "car_owner_applications",
       "chauffeur_applications",
       "corporate_account_applications",
-      "affiliate_applications",
     ];
     const results: { table: string; rows: Row[] }[] = [];
     for (const t of tables) {
@@ -79,7 +78,6 @@ export default function AdminApplications() {
           <option value="car_owner_applications">Car Owner</option>
           <option value="chauffeur_applications">Chauffeur</option>
           <option value="corporate_account_applications">Corporate</option>
-          <option value="affiliate_applications">Affiliate</option>
         </select>
         <button onClick={() => exportCSV(flat, `applications-${Date.now()}.csv`)} className="bg-luxe-gold-accent text-black font-bold rounded p-2">Export CSV</button>
       </div>

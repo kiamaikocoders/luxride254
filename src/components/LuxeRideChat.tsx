@@ -131,7 +131,6 @@ PARTNERSHIP OPPORTUNITIES:
 - Chauffeur Application: Join our professional driver network
 - Security Application: Provide security services for VIP clients
 - Corporate Accounts: Business transportation solutions
-- Affiliate Program: Referral opportunities
 
 CRITICAL FORMATTING RULES:
 - NEVER use asterisks (*) or double asterisks (**) for bold text

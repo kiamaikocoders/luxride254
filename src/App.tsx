@@ -4,9 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
+import LandingPage from "./components/landing/LandingPage";
 import ExecutiveCars from "./pages/ExecutiveCars";
-import HelicopterCharters from "./pages/HelicopterCharters";
-import SpeedboatTransfers from "./pages/SpeedboatTransfers";
 import VIPMembership from "./pages/VIPMembership";
 import NotFound from "./pages/NotFound";
 import { CopilotKit } from "@copilotkit/react-core";
@@ -17,10 +16,11 @@ import React, { useState } from "react";
 import LuxeRideChat from "@/components/LuxeRideChat";
 import CarOwnerPartnership from "./pages/CarOwnerPartnership";
 import ChauffeurApplication from "./pages/ChauffeurApplication";
-import SecurityApplication from "./pages/SecurityApplication";
 import CorporateAccounts from "./pages/CorporateAccounts";
-import AffiliateProgram from "./pages/AffiliateProgram";
 import ApplicationStatus from "./pages/ApplicationStatus";
+import Contact from "./pages/Contact";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -94,19 +94,27 @@ const App = () => {
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Public pages - Landing site */}
-          <Route path="/" element={<Index />} />
+          {/* New Landing Page */}
+          <Route path="/" element={<LandingPage />} />
+          
+          {/* Legacy Homepage (backup) */}
+          <Route path="/legacy-home" element={<Index />} />
+          
+          {/* Service Pages */}
           <Route path="/executive-cars" element={<ExecutiveCars />} />
-          <Route path="/helicopter-charters" element={<HelicopterCharters />} />
-          <Route path="/speedboat-transfers" element={<SpeedboatTransfers />} />
           <Route path="/vip-membership" element={<VIPMembership />} />
 
+          {/* Contact & Support */}
+          <Route path="/contact" element={<Contact />} />
+          
+          {/* Admin System */}
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          
           {/* Partnership and Application pages */}
           <Route path="/car-owner-partnership" element={<CarOwnerPartnership />} />
           <Route path="/chauffeur-application" element={<ChauffeurApplication />} />
-          <Route path="/security-application" element={<SecurityApplication />} />
           <Route path="/corporate-accounts" element={<CorporateAccounts />} />
-          <Route path="/affiliate-program" element={<AffiliateProgram />} />
           <Route path="/application-status" element={<ApplicationStatus />} />
 
           {/* Catch-all */}
