@@ -64,9 +64,21 @@ export default function ChauffeurApplication() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative">
+      {/* Blurred Background Logo */}
+      <div className="fixed inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 blur-sm"
+          style={{ 
+            backgroundImage: `url('/luxride-logo.svg')`,
+            backgroundSize: '60%',
+            backgroundPosition: 'center'
+          }}
+        />
+      </div>
+      
       <Header />
-      <main className="pt-24 max-w-4xl mx-auto px-4 pb-16">
+      <main className="pt-24 max-w-4xl mx-auto px-4 pb-16 relative z-10">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-yellow-400 mb-4">Apply to Join Us</h1>
           <p className="text-gray-600 text-lg">Complete the application below. Only qualified candidates will be contacted for interviews.</p>
