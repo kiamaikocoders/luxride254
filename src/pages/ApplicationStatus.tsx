@@ -88,7 +88,7 @@ export default function ApplicationStatus() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 relative">
+    <div className="min-h-screen bg-white text-gray-900 relative">
       {/* Blurred Background Logo */}
       <div className="fixed inset-0 z-0">
         <div 
@@ -127,7 +127,7 @@ export default function ApplicationStatus() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="flex-1 bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors"
+                  className="flex-1 bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors"
                   required
                 />
                 <Button 

@@ -80,17 +80,13 @@ const UserMenu: React.FC = () => {
           {role === "driver" && (
             <>
               <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/driver-dashboard"); }}>Driver Dashboard</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/my-trips"); }}>My Trips</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/earnings"); }}>Earnings</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/profile"); }}>Profile</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/feedback"); }}>Feedback</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); window.open("https://apps.apple.com/app/luxeride-vip/id[APP_ID]", "_blank"); }}>Download Mobile App</button>
             </>
           )}
           {/* Corporate menu */}
           {role === "corporate" && (
             <>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/corporate-dashboard"); }}>Corporate Dashboard</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/team-bookings"); }}>Team Bookings</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); window.open("https://apps.apple.com/app/luxeride-vip/id[APP_ID]", "_blank"); }}>Download Mobile App</button>
               <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/approvals"); }}>Approvals</button>
               <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/reports"); }}>Reports</button>
               <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/manage-team"); }}>Manage Team</button>
@@ -100,10 +96,8 @@ const UserMenu: React.FC = () => {
           {/* Regular user menu */}
           {role !== "admin" && role !== "driver" && role !== "corporate" && (
             <>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/profile"); }}>Profile</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/bookings"); }}>My Bookings</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/vip-membership"); }}>VIP Membership</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/feedback"); }}>Feedback</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); navigate("/vip-membership"); }}>Membership Packages</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-white" onClick={() => { setOpen(false); window.open("https://apps.apple.com/app/luxeride-vip/id[APP_ID]", "_blank"); }}>Download Mobile App</button>
             </>
           )}
           <button className="w-full text-left px-4 py-2 hover:bg-luxe-gold-accent/10 text-red-500" onClick={handleLogout}>Logout</button>

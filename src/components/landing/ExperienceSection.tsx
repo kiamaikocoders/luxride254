@@ -2,12 +2,16 @@ import React from "react";
 
 const ExperienceSection = () => {
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 section-alternate relative">
+      {/* Top Border Separator */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent"></div>
+      {/* Bottom Border Separator */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent"></div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 gap-12">
           {/* Professional Standards */}
-          <div className="animate-fade-in">
-            <h3 className="text-2xl font-semibold mb-6 text-gray-900">Professional Excellence</h3>
+          <div className="scroll-fade-left">
+            <h3 className="text-2xl brand-heading mb-8">Professional Excellence</h3>
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="w-10 h-10 bg-yellow-400/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
@@ -46,8 +50,8 @@ const ExperienceSection = () => {
           </div>
           
           {/* Service Areas */}
-          <div className="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg hover:border-yellow-400 transition-all duration-300 animate-fade-in-delay-1">
-            <h3 className="text-2xl font-semibold mb-6 text-gray-900">Service Areas</h3>
+          <div className="card-enhanced p-8 scroll-fade-right">
+            <h3 className="text-2xl brand-heading mb-6">Service Areas</h3>
             <div className="grid grid-cols-2 gap-4 text-gray-600 mb-6">
               <div className="flex items-center">
                 <svg className="w-4 h-4 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -99,15 +103,6 @@ const ExperienceSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        .animate-fade-in-delay-1 { animation: fadeIn 0.8s ease-out 0.2s forwards; }
-        .animate-fade-in, .animate-fade-in-delay-1 { opacity: 0; }
-      `}</style>
     </section>
   );
 };

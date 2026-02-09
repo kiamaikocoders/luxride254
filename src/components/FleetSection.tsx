@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/luxe-button"
-import BookingModal from "@/components/BookingModal";
+// BookingModal removed - users subscribe via mobile app
 import React, { useState, useRef } from "react";
 
   const vehicles = [
@@ -216,7 +216,7 @@ const FleetSection = () => {
           }
         `}</style>
       </div>
-      <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} vehicleType={selectedType} />
+      {/* Booking removed - users subscribe via mobile app */}
     </section>
   )
 }

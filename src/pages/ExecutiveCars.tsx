@@ -5,6 +5,7 @@ import { ArrowLeft, Car, Shield, Clock, Star, ChevronLeft, ChevronRight, Users, 
 import { Link } from "react-router-dom"
 import executiveCarsImage from "@/assets/executive-cars.jpg"
 import React, { useState, useEffect } from "react";
+import { GradientText, AnimatedButton, MeshBackground } from '@/components/reactbits';
 
 const ExecutiveCars = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,7 +23,7 @@ const ExecutiveCars = () => {
         { icon: <Wifi className="w-5 h-5" />, text: "Wi-Fi connectivity & mobile charging" },
         { icon: <Thermometer className="w-5 h-5" />, text: "Climate control & privacy glass" }
       ],
-      availability: "Available in all VIP packages",
+      availability: "Available in all membership packages",
       tier: "Executive"
     },
     {
@@ -35,7 +36,7 @@ const ExecutiveCars = () => {
         { icon: <Sparkles className="w-5 h-5" />, text: "Premium entertainment & privacy glass" },
         { icon: <Car className="w-5 h-5" />, text: "All-terrain capability" }
       ],
-      availability: "Available in all VIP packages",
+      availability: "Available in all membership packages",
       tier: "Luxury"
     },
     {
@@ -188,7 +189,7 @@ const ExecutiveCars = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               <span className="text-yellow-400">Executive</span> Cars
             </h1>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-white max-w-2xl mx-auto">
               Experience luxury and comfort with our premium fleet of executive vehicles
             </p>
           </div>
@@ -209,14 +210,23 @@ const ExecutiveCars = () => {
         </section>
 
         {/* Fleet Showcase Section */}
-        <section className="py-16 bg-gray-900">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16 bg-gray-900 relative overflow-hidden">
+          {/* Subtle Mesh Background */}
+          <MeshBackground 
+            className="opacity-20"
+            colors={['#1a1a1a', '#2d2d2d', '#D4AF37', '#1a1a1a']}
+            intensity={0.2}
+          />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Our Premium Fleet
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <span className="text-white">Our Premium </span>
+                <GradientText animate={true} gradient="gold" className="font-bold">
+                  Fleet
+                </GradientText>
                 </h2>
               <div className="h-1 w-20 bg-yellow-400 mx-auto mb-6"></div>
-              <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
+              <p className="text-white text-lg max-w-3xl mx-auto leading-relaxed">
                 Meticulously curated vehicles across three distinct luxury categories, 
                 maintained to the highest standards of excellence.
               </p>
@@ -254,10 +264,10 @@ const ExecutiveCars = () => {
                                 </span>
                               </div>
                               <h3 className="text-2xl font-semibold mb-3 text-white">{vehicle.category}</h3>
-                              <p className="text-gray-300 mb-4">{vehicle.models}</p>
+                              <p className="text-gray-100 mb-4">{vehicle.models}</p>
                               <ul className="space-y-3 mb-6">
                                 {vehicle.features.map((feature, index) => (
-                                  <li key={index} className="flex items-center text-gray-300">
+                                  <li key={index} className="flex items-center text-gray-100">
                                     <span className="text-yellow-400 mr-3 flex-shrink-0">{feature.icon}</span>
                                     {feature.text}
                                   </li>
@@ -335,7 +345,7 @@ const ExecutiveCars = () => {
                           <p className="text-gray-300 mb-4 text-sm">{vehicle.models}</p>
                           <ul className="space-y-2 mb-4">
                             {vehicle.features.map((feature, index) => (
-                              <li key={index} className="flex items-center text-gray-300 text-sm">
+                              <li key={index} className="flex items-center text-gray-100 text-sm">
                                 <span className="text-yellow-400 mr-2 flex-shrink-0">{feature.icon}</span>
                                 {feature.text}
                               </li>
@@ -357,52 +367,62 @@ const ExecutiveCars = () => {
         {/* Features Section */}
         <section className="py-16 bg-gray-800">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-6">
-                Why Choose Our Executive Fleet?
+            <div className="text-center mb-12 relative z-10">
+              <h2 className="text-3xl font-bold mb-6">
+                <span className="text-white">Why Choose Our </span>
+                <GradientText animate={true} gradient="gold" className="font-bold">
+                  Executive Fleet?
+                </GradientText>
               </h2>
                   </div>
                   
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="bg-yellow-400/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Car className="h-8 w-8 text-yellow-400" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {/* Luxury Vehicles - Vibrant Gold Card */}
+              <div className="text-center bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl p-8 shadow-xl hover:shadow-2xl hover:shadow-yellow-400/50 transition-all transform hover:-translate-y-2">
+                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <Car className="h-10 w-10 text-gray-900" />
                     </div>
-                <h3 className="font-semibold text-white mb-2">Luxury Vehicles</h3>
-                <p className="text-gray-300 text-sm">Mercedes S-Class, BMW 7 Series, and other premium vehicles</p>
+                <h3 className="font-bold text-gray-900 mb-3 text-lg">Luxury Vehicles</h3>
+                <p className="text-gray-800 text-sm font-medium leading-relaxed">Mercedes S-Class, BMW 7 Series, and other premium vehicles</p>
                   </div>
               
-              <div className="text-center">
-                <div className="bg-yellow-400/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Shield className="h-8 w-8 text-yellow-400" />
+              {/* Professional Chauffeurs - Deep Gold Card */}
+              <div className="text-center bg-gradient-to-br from-yellow-500 via-yellow-600 to-yellow-700 rounded-xl p-8 shadow-xl hover:shadow-2xl hover:shadow-yellow-500/50 transition-all transform hover:-translate-y-2">
+                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <Shield className="h-10 w-10 text-gray-900" />
                 </div>
-                <h3 className="font-semibold text-white mb-2">Professional Chauffeurs</h3>
-                <p className="text-gray-300 text-sm">Experienced, licensed, and background-checked drivers</p>
+                <h3 className="font-bold text-gray-900 mb-3 text-lg">Professional Chauffeurs</h3>
+                <p className="text-gray-800 text-sm font-medium leading-relaxed">Experienced, licensed, and background-checked drivers</p>
                 </div>
 
-              <div className="text-center">
-                <div className="bg-yellow-400/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Clock className="h-8 w-8 text-yellow-400" />
+              {/* 24/7 Availability - Gold Gradient Card */}
+              <div className="text-center bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl p-8 shadow-xl hover:shadow-2xl hover:shadow-yellow-400/50 transition-all transform hover:-translate-y-2">
+                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <Clock className="h-10 w-10 text-gray-900" />
                 </div>
-                <h3 className="font-semibold text-white mb-2">24/7 Availability</h3>
-                <p className="text-gray-300 text-sm">Round-the-clock service for all your transportation needs</p>
+                <h3 className="font-bold text-gray-900 mb-3 text-lg">24/7 Availability</h3>
+                <p className="text-gray-800 text-sm font-medium leading-relaxed">Round-the-clock service for all your transportation needs</p>
               </div>
 
-              <div className="text-center">
-                <div className="bg-yellow-400/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <Star className="h-8 w-8 text-yellow-400" />
+              {/* 5-Star Service - Premium Gold Card */}
+              <div className="text-center bg-gradient-to-br from-yellow-500 via-yellow-600 to-yellow-700 rounded-xl p-8 shadow-xl hover:shadow-2xl hover:shadow-yellow-500/50 transition-all transform hover:-translate-y-2">
+                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <Star className="h-10 w-10 text-gray-900" />
                 </div>
-                <h3 className="font-semibold text-white mb-2">5-Star Service</h3>
-                <p className="text-gray-300 text-sm">Exceptional service quality guaranteed</p>
+                <h3 className="font-bold text-gray-900 mb-3 text-lg">5-Star Service</h3>
+                <p className="text-gray-800 text-sm font-medium leading-relaxed">Exceptional service quality guaranteed</p>
               </div>
             </div>
 
-            <div className="text-center mt-12">
-              <Button variant="premium" size="lg" asChild>
+            <div className="text-center mt-12 relative z-10">
                 <Link to="/vip-membership" className="inline-block">
+                <AnimatedButton
+                  variant="gold"
+                  size="lg"
+                >
                   Learn About VIP Access
+                </AnimatedButton>
                 </Link>
-              </Button>
             </div>
           </div>
         </section>

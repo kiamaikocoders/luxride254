@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
+import MultiStepForm, { Step } from "@/components/MultiStepForm";
+import { FileUploadWithPreview } from "@/components/FileUploadWithPreview";
 import { supabase } from "@/lib/supabaseClient";
 import { uploadFilesToApplicationsBucket } from "@/lib/storage";
 import { validateEmail, validatePhoneKe, isNonEmpty } from "@/lib/validation";
 import { useRateLimit } from "@/hooks/useRateLimit";
+import { Building2, Briefcase, FileText } from "lucide-react";
 
 export default function CorporateAccounts() {
   const [submitting, setSubmitting] = useState(false);
@@ -12,14 +15,15 @@ export default function CorporateAccounts() {
   const [success, setSuccess] = useState<string | null>(null);
   const { canSubmit, record } = useRateLimit(3, 60_000);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!canSubmit()) { setError("Too many attempts. Please wait a minute and try again."); return; }
+  async function onSubmit(formData: FormData) {
+    if (!canSubmit()) {
+      setError("Too many attempts. Please wait a minute and try again.");
+      return;
+    }
     setSubmitting(true);
     setError(null);
     setSuccess(null);
-    const form = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
+
     try {
       const company_name = String(formData.get("company_name") || "");
       const industry = String(formData.get("industry") || "");
@@ -55,10 +59,10 @@ export default function CorporateAccounts() {
         special_requirements,
         expectations,
         document_paths,
+        status: 'pending',
       });
       if (insertError) throw new Error(insertError.message);
       setSuccess("Corporate account application submitted. Our team will reach out promptly.");
-      form.reset();
       record();
     } catch (e: any) {
       setError(e.message || String(e));
@@ -67,45 +71,50 @@ export default function CorporateAccounts() {
     }
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <Header />
-      <main className="pt-20 max-w-4xl mx-auto px-4 pb-16">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-yellow-400 mb-4">Apply for Corporate Account</h1>
-          <p className="text-gray-600 text-lg">Join businesses that trust LuxeRide for premium transportation solutions.</p>
+  const steps: Step[] = [
+    {
+      id: "company",
+      title: "COMPANY",
+      content: (
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center">
+              <Building2 className="w-5 h-5 text-yellow-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Company & Contact Information</h2>
+              <p className="text-sm text-gray-600">Enter your company details and contact information</p>
+            </div>
         </div>
-
-        {error && <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">{error}</div>}
-        {success && <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600">{success}</div>}
-
-        <div className="bg-white rounded-2xl p-8 shadow-2xl">
-          <form onSubmit={onSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Company Name *</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Company Name <span className="text-red-500">*</span>
+              </label>
                 <input 
                   name="company_name" 
                   required 
                   placeholder="Enter company name" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Industry *</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Industry <span className="text-red-500">*</span>
+              </label>
                 <input 
                   name="industry" 
                   required 
                   placeholder="Enter industry" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">Number of Employees (range)</label>
                 <input 
                   name="employees_range" 
-                  placeholder="Enter employee range" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                placeholder="e.g. 50-100, 100-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
               <div className="space-y-2">
@@ -113,135 +122,172 @@ export default function CorporateAccounts() {
                 <input 
                   name="primary_location" 
                   placeholder="Enter primary location" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Contact Person *</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Contact Person <span className="text-red-500">*</span>
+              </label>
                 <input 
                   name="contact_name" 
                   required 
                   placeholder="Enter contact person name" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Contact Email *</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Contact Email <span className="text-red-500">*</span>
+              </label>
                 <input 
                   name="contact_email" 
                   type="email" 
                   required 
                   placeholder="Enter contact email" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Contact Phone *</label>
+            <div className="space-y-2 md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Contact Phone <span className="text-red-500">*</span>
+              </label>
                 <input 
                   name="contact_phone" 
                   required 
                   placeholder="Enter contact phone" 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 />
               </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "services",
+      title: "SERVICES",
+      content: (
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center">
+              <Briefcase className="w-5 h-5 text-yellow-400" />
             </div>
-
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">Services Required</label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Services & Requirements</h2>
+              <p className="text-sm text-gray-600">Tell us about your transportation needs and preferences</p>
+            </div>
+          </div>
+          <div className="space-y-6 mt-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">Services Required</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {[
                   "Executive Car Services",
                   "Airport Transfers",
                   "Event Transportation",
                   "Roadshow Support",
                 ].map((label) => (
-                  <label key={label} className="flex items-center space-x-3 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" name="services_required" value={label} className="h-4 w-4 text-yellow-400 focus:ring-yellow-400 border-gray-300 rounded" />
+                  <label
+                    key={label}
+                    className="flex items-center space-x-3 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      name="services_required"
+                      value={label}
+                      className="h-4 w-4 text-yellow-400 focus:ring-yellow-400 border-gray-300 rounded"
+                    />
                     <span className="text-sm text-gray-700">{label}</span>
                   </label>
                 ))}
               </div>
             </div>
-
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Billing Preference</label>
               <input 
                 name="billing_preference" 
-                placeholder="Enter billing preference" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                placeholder="e.g. Monthly invoice, Weekly billing"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
               />
             </div>
-
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Current Transportation Provider (if any)</label>
               <input 
                 name="current_provider" 
                 placeholder="Enter current provider" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
               />
             </div>
-
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Special Requirements</label>
               <textarea 
                 name="special_requirements" 
                 placeholder="Describe special requirements" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 rows={3}
-              ></textarea>
+              />
             </div>
-
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">Expectations & Goals</label>
               <textarea 
                 name="expectations" 
                 placeholder="Describe your expectations and goals" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-luxe-gold-accent focus:border-transparent transition-colors" 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors bg-white"
                 rows={4}
-              ></textarea>
+              />
             </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Upload Company Documents (registration, tax compliance, profile)</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-yellow-400 transition-colors">
-                <div className="space-y-2">
-                  <div className="text-gray-500">
-                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    <label htmlFor="documents" className="cursor-pointer">
-                      <span className="font-medium text-yellow-400 hover:text-yellow-300">Choose Files</span> or drag and drop
-                    </label>
-                    <input 
-                      id="documents" 
-                      name="documents" 
-                      type="file" 
-                      multiple 
-                      className="hidden" 
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                  </div>
-                  <p className="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <button 
-                disabled={submitting} 
-                className="w-full bg-yellow-400 text-gray-900 font-bold py-4 px-6 rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {submitting ? "Submitting Application..." : "Submit Corporate Account Application"}
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
+      ),
+    },
+    {
+      id: "docs",
+      title: "DOCS",
+      content: (
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center">
+              <FileText className="w-5 h-5 text-yellow-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Document Upload</h2>
+              <p className="text-sm text-gray-600">Upload required company documents (registration, tax compliance, profile)</p>
+            </div>
+          </div>
+          <div className="mt-6">
+            <FileUploadWithPreview
+              name="documents"
+              id="documents"
+              accept=".pdf,.jpg,.jpeg,.png"
+              multiple={true}
+              maxSize={10 * 1024 * 1024}
+            />
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <Header />
+      <main className="pt-24 pb-16 px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">
+            Apply for <span className="text-yellow-400">Corporate Account</span>
+          </h1>
+          <p className="text-gray-600 text-lg">Join businesses that trust LuxeRide for premium transportation solutions.</p>
+        </div>
+
+        <MultiStepForm
+          steps={steps}
+          onSubmit={onSubmit}
+          submitting={submitting}
+          error={error}
+          success={success}
+        />
       </main>
       <Footer />
     </div>
   );
 }
-
-

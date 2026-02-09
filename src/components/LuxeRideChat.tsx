@@ -8,7 +8,7 @@ const QUICK_REPLIES = [
   { label: "Book Executive Car", value: "I want to book an executive car" },
   { label: "Book Helicopter", value: "I want to book a helicopter charter" },
   { label: "Book Speedboat", value: "I want to book a speedboat transfer" },
-  { label: "VIP Membership", value: "Tell me about VIP Membership" },
+  { label: "Membership Packages", value: "Tell me about membership packages" },
   { label: "General Inquiry", value: "I have a general question" },
 ];
 
@@ -46,7 +46,7 @@ export default function LuxeRideChat() {
       console.log("Using fallback response - API key not configured");
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Welcome to LuxeRide! I'm here to help with your luxury transportation needs. Our services include executive cars, helicopter charters, and speedboat transfers. You can also learn about our VIP membership program. How can I assist you today?" },
+        { role: "assistant", content: "Welcome to LuxeRide! I'm here to help with your luxury transportation needs. Our services include executive cars, helicopter charters, and speedboat transfers. We offer three membership packages: Gold, Platinum, and Diamond. How can I assist you today?" },
       ]);
       setShowQuickReplies(true);
       setLoading(false);
@@ -98,8 +98,8 @@ SERVICES:
    - Fast transfers: Quick and efficient water transportation
    - Coastal adventures: Explore Kenya's beautiful coastline and waterways
 
-4. VIP MEMBERSHIP:
-   - Gold Tier: KSH 150,000/month
+4. MEMBERSHIP PACKAGES:
+   - Gold Package: KSH 150,000/month
      * 20 rides included per month
      * Priority booking
      * Basic concierge support
@@ -107,16 +107,16 @@ SERVICES:
      * Standard response time
      * No family members included
    
-   - Platinum Tier: KSH 300,000/month
+   - Platinum Package: KSH 300,000/month
      * 40 rides included per month
-     * VIP priority booking
+     * Priority booking
      * 24/7 dedicated concierge
      * Premium fleet access
      * Fast response time
      * Up to 3 family members
      * Optional security detail
    
-   - Diamond Tier: KSH 500,000/month
+   - Diamond Package: KSH 500,000/month
      * 60 rides included per month
      * Guaranteed availability
      * Personal account manager
@@ -129,7 +129,7 @@ SERVICES:
 PARTNERSHIP OPPORTUNITIES:
 - Car Owner Partnership: Transform luxury vehicles into income sources
 - Chauffeur Application: Join our professional driver network
-- Security Application: Provide security services for VIP clients
+- Security Application: Provide security services for Diamond package members
 - Corporate Accounts: Business transportation solutions
 
 CRITICAL FORMATTING RULES:
@@ -173,7 +173,7 @@ CRITICAL FORMATTING RULES:
       console.error("Error details:", e.message);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: `I encountered an error: ${e.message}. Welcome to LuxeRide! I'm here to help with your luxury transportation needs. Our services include executive cars, helicopter charters, and speedboat transfers. You can also learn about our VIP membership program. How can I assist you today?` },
+        { role: "assistant", content: `I encountered an error: ${e.message}. Welcome to LuxeRide! I'm here to help with your luxury transportation needs. Our services include executive cars, helicopter charters, and speedboat transfers. We offer three membership packages: Gold, Platinum, and Diamond. How can I assist you today?` },
       ]);
     } finally {
       setLoading(false);
@@ -189,13 +189,9 @@ CRITICAL FORMATTING RULES:
   return (
     <div
       style={{
-        width: 370,
-        maxWidth: "100vw",
-        height: 480,
-        maxHeight: "70vh",
+        width: "100%",
+        height: "100%",
         background: "#18181b",
-        borderRadius: 16,
-        boxShadow: "0 8px 32px rgba(0,0,0,0.28)",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",

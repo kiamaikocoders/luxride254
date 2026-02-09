@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import './styles/animations.css';
+@import 'mapbox-gl/dist/mapbox-gl.css';
 
 @tailwind base;
 @tailwind components;
@@ -58,29 +60,47 @@
     /* Typography */
     --font-family-primary: 'Montserrat', sans-serif;
     --font-family-secondary: 'Open Sans', sans-serif;
+    --font-family-heading: 'Oswald', sans-serif;
 
-    /* Premium Shadows & Effects */
-    --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.3);
-    --shadow-button-hover: 0 2px 8px rgba(212, 175, 55, 0.4);
+    /* Brand Colors for Typography */
+    --brand-heading-color: #2D2D2D; /* Dark grey for headings */
+    --brand-text-secondary: #4A4A4A; /* Medium grey for secondary text */
+
+    /* Premium Shadows & Effects - Enhanced Multi-Layer System */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.16);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06), 0 16px 48px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 8px 32px rgba(212, 175, 55, 0.12), 0 16px 64px rgba(0, 0, 0, 0.08);
+    --shadow-button-hover: 0 2px 8px rgba(212, 175, 55, 0.18), 0 4px 16px rgba(212, 175, 55, 0.12);
     --shadow-gold-glow: 0 0 20px rgba(212, 175, 55, 0.2);
+    --shadow-gold-glow-lg: 0 0 40px rgba(212, 175, 55, 0.3);
+
+    /* Enhanced Gold Color Variations */
+    --luxe-gold-primary: #D4AF37;
+    --luxe-gold-deep: #B8941F;
+    --luxe-gold-light: #F4D03F;
+    --luxe-gold-pale: #F9E79F;
 
     /* Gradients */
     --gradient-hero-overlay: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
     --gradient-card-subtle: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(51, 51, 51, 0.3));
-    --gradient-gold: linear-gradient(135deg, #D4AF37, #F4D03F);
+    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+    --gradient-gold-hover: linear-gradient(135deg, #C5A028 0%, #E6C84A 100%);
   }
 
   .light {
-    /* LuxeRide Light Mode Palette */
-    --luxe-dark-primary: 44 56% 96%; /* #F8F5ED - Luxe Ivory */
+    /* LuxeRide Light Mode Palette - Bright White Theme */
+    --luxe-dark-primary: 0 0% 100%; /* #FFFFFF - Pure White */
     --luxe-gold-accent: 43 69% 52%; /* #D4AF37 - same gold */
     --luxe-white-primary: 0 0% 100%; /* #FFFFFF */
-    --luxe-gray-secondary: 44 10% 55%; /* #A89C87 - Deeper Sand for contrast */
-    --luxe-dark-outline: 44 10% 80%; /* #E5DDC8 - Pale Outline */
+    --luxe-gray-secondary: 0 0% 60%; /* #999999 - Neutral Gray for contrast */
+    --luxe-dark-outline: 0 0% 90%; /* #E6E6E6 - Light Gray Outline */
     --luxe-gold-star: 45 100% 51%; /* #FFC107 */
-    --luxe-gray-footer: 44 10% 92%; /* #F5F1E7 - Footer Sand */
-    --luxe-dark-social: 44 10% 80%; /* #E5DDC8 - Social Sand */
-    --luxe-black-text: 44 30% 15%; /* #4B3A1A - Deeper Luxe Brown for text */
+    --luxe-gray-footer: 0 0% 98%; /* #FAFAFA - Very Light Gray Footer */
+    --luxe-dark-social: 0 0% 95%; /* #F2F2F2 - Light Social Gray */
+    --luxe-black-text: 0 0% 10%; /* #1A1A1A - Dark Text */
 
     /* Semantic Color Mapping */
     --background: var(--luxe-dark-primary);
@@ -99,26 +119,39 @@
     --accent-foreground: var(--luxe-black-text);
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: var(--luxe-white-primary);
-    --border: 44 10% 80%; /* #E5DDC8 - subtle border for cards */
+    --border: 0 0% 90%; /* #E6E6E6 - Light Gray Outline */
     --input: var(--luxe-dark-outline);
     --ring: var(--luxe-gold-accent);
 
-    /* Premium Shadows & Effects */
-    --shadow-card: 0 4px 24px rgba(75, 58, 26, 0.08); /* Deeper brown shadow */
-    --shadow-button-hover: 0 2px 8px rgba(212, 175, 55, 0.18);
+    /* Premium Shadows & Effects - Enhanced Multi-Layer System */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.16);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06), 0 16px 48px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 8px 32px rgba(212, 175, 55, 0.12), 0 16px 64px rgba(0, 0, 0, 0.08);
+    --shadow-button-hover: 0 2px 8px rgba(212, 175, 55, 0.18), 0 4px 16px rgba(212, 175, 55, 0.12);
     --shadow-gold-glow: 0 0 20px rgba(212, 175, 55, 0.10);
+    --shadow-gold-glow-lg: 0 0 40px rgba(212, 175, 55, 0.15);
+
+    /* Enhanced Gold Color Variations */
+    --luxe-gold-primary: #D4AF37;
+    --luxe-gold-deep: #B8941F;
+    --luxe-gold-light: #F4D03F;
+    --luxe-gold-pale: #F9E79F;
 
     /* Gradients */
     --gradient-hero-overlay: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7));
-    --gradient-card-subtle: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(234, 227, 210, 0.3));
-    --gradient-gold: linear-gradient(135deg, #D4AF37, #F4D03F);
+    --gradient-card-subtle: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248, 248, 248, 0.3));
+    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+    --gradient-gold-hover: linear-gradient(135deg, #C5A028 0%, #E6C84A 100%);
   }
 
   /* Optional: Light mode header background */
   .light .fixed.top-0 {
-    background-color: #f8f5ed !important;
-    box-shadow: 0 2px 8px rgba(75, 58, 26, 0.04);
-    border-bottom: 1px solid #e5ddc8;
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid #e6e6e6;
   }
 }
 
@@ -127,7 +160,188 @@
     @apply border-border;
   }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
   body {
     @apply bg-background text-foreground;
+    background-color: #ffffff !important;
+    overflow-x: hidden;
+  }
+  
+  /* Force white background for all main containers */
+  .min-h-screen {
+    background-color: #ffffff !important;
+    min-height: 100vh;
+  }
+  
+  /* Ensure all sections use white background */
+  section {
+    background-color: #ffffff !important;
+  }
+  
+  /* Override any gray backgrounds */
+  .bg-gray-50 {
+    background-color: #ffffff !important;
+  }
+  
+  .bg-gray-100 {
+    background-color: #ffffff !important;
+  }
+  
+  /* Prevent white space below page content */
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Admin Dashboard Dark Theme Styles */
+@layer base {
+  /* Admin dashboard uses dark theme */
+  body.admin-dashboard,
+  body.admin-dashboard * {
+    font-family: 'Inter', 'Noto Sans', sans-serif;
+  }
+
+  /* Custom Scrollbar for admin dark theme */
+  body.admin-dashboard ::-webkit-scrollbar,
+  .admin-scrollbar ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  body.admin-dashboard ::-webkit-scrollbar-track,
+  .admin-scrollbar ::-webkit-scrollbar-track {
+    background: #111418;
+  }
+
+  body.admin-dashboard ::-webkit-scrollbar-thumb,
+  .admin-scrollbar ::-webkit-scrollbar-thumb {
+    background: #283039;
+    border-radius: 4px;
+  }
+
+  body.admin-dashboard ::-webkit-scrollbar-thumb:hover,
+  .admin-scrollbar ::-webkit-scrollbar-thumb:hover {
+    background: #3b4754;
+  }
+
+  /* Firefox scrollbar */
+  body.admin-dashboard *,
+  .admin-scrollbar * {
+    scrollbar-width: thin;
+    scrollbar-color: #283039 #111418;
+  }
+}
+
+/* Enhanced Card Styles */
+@layer components {
+  .card-enhanced {
+    @apply bg-white border border-gray-200 rounded-lg;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-enhanced:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--luxe-gold-primary);
+  }
+
+  /* Section Background Variations - Weego Style */
+  .section-alternate {
+    background-color: #FAFAFA;
+  }
+  .section-gold-tint {
+    background: linear-gradient(to bottom, #FFF9E6 0%, #FFFFFF 100%);
+  }
+  .section-dark {
+    background-color: #1A1A1A;
+  }
+  .section-gold-accent {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+  }
+  .section-separator {
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  /* Enhanced Button Styles */
+  .btn-gold-gradient {
+    background: var(--gradient-gold);
+    transition: all 0.3s ease;
+  }
+
+  .btn-gold-gradient:hover {
+    background: var(--gradient-gold-hover);
+    box-shadow: var(--shadow-button-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Brand Typography - Oswald Font for Highlighted Sections */
+  .brand-heading {
+    font-family: var(--font-family-heading);
+    color: var(--brand-heading-color);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* Calligraphic Brand Text - LuxeRide Logo */
+  .luxe-brand-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 4rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 640px) {
+    .luxe-brand-text {
+      font-size: 5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .luxe-brand-text {
+      font-size: 6rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .luxe-brand-text {
+      font-size: 7rem;
+    }
+  }
+
+  /* LUXE part - Gold Gradient */
+  .luxe-part {
+    background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #FFD700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+  }
+
+  /* RIDE part - Dark Gray */
+  .ride-part {
+    color: #1a1a1a;
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+  .brand-heading-light {
+    font-family: var(--font-family-heading);
+    color: var(--brand-heading-color);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .brand-text-secondary {
+    color: var(--brand-text-secondary);
   }
 }

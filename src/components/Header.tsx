@@ -39,9 +39,8 @@ const Header = () => {
               <Link to="/application-status" className="block px-4 py-2 text-white hover:bg-luxe-gold-accent/10">Check Application Status</Link>
             </div>
           </div>
-          <Link to="/vip-membership" className="text-luxe-gold-accent font-semibold px-3 py-2 hover:text-white transition">VIP Membership</Link>
+          <Link to="/vip-membership" className="text-luxe-gold-accent font-semibold px-3 py-2 hover:text-white transition">Membership Packages</Link>
           <Link to="/contact" className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition">Contact</Link>
-          <Link to="/admin-login" className="text-white font-semibold px-3 py-2 hover:text-luxe-gold-accent transition">Admin</Link>
         </nav>
         {/* Actions: Apply for VIP Access, Theme Toggle */}
         <div className="hidden md:flex items-center space-x-3">
@@ -111,9 +110,8 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <Link to="/vip-membership" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">VIP Membership</Link>
+            <Link to="/vip-membership" onClick={() => setMobileOpen(false)} className="py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">Membership Packages</Link>
             <Link to="/contact" onClick={() => setMobileOpen(false)} className="py-2 text-white border-b border-luxe-dark-outline">Contact</Link>
-            <Link to="/admin-login" onClick={() => setMobileOpen(false)} className="py-2 text-white border-b border-luxe-dark-outline">Admin</Link>
             <a href="tel:+254700123456" className="flex items-center gap-2 py-2 text-luxe-gold-accent border-b border-luxe-dark-outline">
               <Phone className="h-5 w-5" />
               +254 700 123 456

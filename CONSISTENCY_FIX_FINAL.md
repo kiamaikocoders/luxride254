@@ -94,3 +94,12 @@ import Footer from "@/components/landing/Footer"
 
 **No more inconsistencies! Everything is now perfectly aligned! 🚀**
 
+
+
+
+
+
+
+
+
+

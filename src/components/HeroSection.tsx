@@ -58,7 +58,7 @@ const HeroSection = () => {
             </Button>
             <Link to="/vip-membership">
               <Button variant="outline" size="lg" className="text-lg">
-                View VIP Packages
+                View Membership Packages
               </Button>
             </Link>
           </div>

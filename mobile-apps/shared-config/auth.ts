@@ -34,10 +34,13 @@ export class AuthService {
 
     const role = userData?.role || 'user';
     
+    // Check for active subscription instead of role-based VIP check
+    const hasSubscription = await AuthService.checkVIPAccess(data.user.id);
+    
     return {
       user: data.user,
       role,
-      isVIP: role === UserRoles.VIP_USER || role === UserRoles.USER,
+      isVIP: hasSubscription, // Subscription-based, not role-based
       isDriver: role === UserRoles.DRIVER,
       isAdmin: role === UserRoles.ADMIN,
     };
@@ -76,10 +79,13 @@ export class AuthService {
 
     const role = userData?.role || UserRoles.USER;
     
+    // Check for active subscription instead of role-based VIP check
+    const hasSubscription = await AuthService.checkVIPAccess(data.user.id);
+    
     return {
       user: data.user,
       role,
-      isVIP: role === UserRoles.VIP_USER || role === UserRoles.USER,
+      isVIP: hasSubscription, // Subscription-based, not role-based
       isDriver: role === UserRoles.DRIVER,
       isAdmin: role === UserRoles.ADMIN,
     };
@@ -108,10 +114,13 @@ export class AuthService {
 
     const role = userData?.role || 'user';
     
+    // Check for active subscription instead of role-based VIP check
+    const hasSubscription = await AuthService.checkVIPAccess(user.id);
+    
     return {
       user,
       role,
-      isVIP: role === UserRoles.VIP_USER || role === UserRoles.USER,
+      isVIP: hasSubscription, // Subscription-based, not role-based
       isDriver: role === UserRoles.DRIVER,
       isAdmin: role === UserRoles.ADMIN,
     };

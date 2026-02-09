@@ -24,7 +24,7 @@ const VIPMembership = () => {
   }, [location.state]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Header />
       
       <main className="pt-24">
@@ -34,7 +34,7 @@ const VIPMembership = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="flex items-center gap-4 justify-center mb-8">
               <Link to="/">
-                <Button variant="outline" size="sm" className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 shadow-md">
+                <Button variant="outline" size="sm" className="bg-white border-gray-300 text-gray-700 hover:bg-white hover:border-gray-400 shadow-md">
                   <ArrowLeft className="h-4 w-4" />
                   Back to Home
                 </Button>
@@ -43,15 +43,15 @@ const VIPMembership = () => {
             
             <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6" />
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-                      <span className="text-yellow-400">VIP</span> Membership
+                      Membership <span className="text-yellow-400">Packages</span>
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Elevate your experience with exclusive benefits and priority access to our premium services
+              Choose from our three subscription tiers: Gold, Platinum, or Diamond - each designed to provide unparalleled luxury transportation experiences
             </p>
           </div>
         </section>
 
-        {/* VIP Membership Component */}
+        {/* Membership Packages Component */}
         <div id="packages">
           <VIPMembershipSection selectedPackage={selectedPackage} />
         </div>

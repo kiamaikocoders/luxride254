@@ -50,7 +50,7 @@ const Footer = () => {
               <li><a href="/executive-cars" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Executive Cars</a></li>
               <li><a href="/helicopter-charters" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Helicopter Charters</a></li>
               <li><a href="/speedboat-transfers" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Speedboat Transfers</a></li>
-              <li><a href="/vip-membership" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">VIP Membership</a></li>
+              <li><a href="/vip-membership" className="font-secondary text-luxe-gray-footer hover:text-luxe-gold-accent transition-colors duration-300">Membership Packages</a></li>
             </ul>
           </div>
 

@@ -2,14 +2,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import LandingPage from "./components/landing/LandingPage";
 import ExecutiveCars from "./pages/ExecutiveCars";
 import VIPMembership from "./pages/VIPMembership";
 import NotFound from "./pages/NotFound";
 import { CopilotKit } from "@copilotkit/react-core";
-import { CopilotChat } from "@copilotkit/react-ui";
 import { ThemeProvider } from "next-themes";
 import { FaComments } from "react-icons/fa";
 import React, { useState } from "react";
@@ -19,8 +18,8 @@ import ChauffeurApplication from "./pages/ChauffeurApplication";
 import CorporateAccounts from "./pages/CorporateAccounts";
 import ApplicationStatus from "./pages/ApplicationStatus";
 import Contact from "./pages/Contact";
-import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
+import AboutUs from "./pages/AboutUs";
+import { AdminRoutes } from "../admin/routes";
 
 const queryClient = new QueryClient();
 
@@ -60,7 +59,7 @@ const FloatingChatPanel: React.FC<{ onClose: () => void; children: React.ReactNo
       zIndex: 1100,
       background: "#18181b",
       borderRadius: "1rem",
-      boxShadow: "0 8px 32px rgba(0,0,0,0.28)",
+      boxShadow: "0 8px 32px rgba(0,0,0,0.28), 0 0 0 9999px rgba(0,0,0,0)",
       overflow: "hidden",
       minWidth: 350,
       maxWidth: 400,
@@ -79,59 +78,79 @@ const FloatingChatPanel: React.FC<{ onClose: () => void; children: React.ReactNo
         ×
       </button>
     </div>
-    <div style={{ flex: 1, minHeight: 0, background: "#18181b" }}>{children}</div>
+    <div style={{ flex: 1, minHeight: 0, background: "#18181b", overflow: "hidden" }}>{children}</div>
   </div>
 );
 
-const App = () => {
+/** Wraps app with CopilotKit only when not on admin routes to avoid 404 API errors during admin login */
+function AppWithOptionalCopilot() {
+  const location = useLocation();
   const [chatOpen, setChatOpen] = useState(false);
-  return (
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  const appContent = (
+    <>
+      <Routes>
+        {/* New Landing Page */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Legacy Homepage (backup) */}
+        <Route path="/legacy-home" element={<Index />} />
+
+        {/* Service Pages */}
+        <Route path="/executive-cars" element={<ExecutiveCars />} />
+        <Route path="/vip-membership" element={<VIPMembership />} />
+
+        {/* Contact & Support */}
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<AboutUs />} />
+
+        {/* Admin System */}
+        <Route path="/admin/*" element={<AdminRoutes />} />
+
+        {/* Partnership and Application pages */}
+        <Route path="/car-owner-partnership" element={<CarOwnerPartnership />} />
+        <Route path="/chauffeur-application" element={<ChauffeurApplication />} />
+        <Route path="/corporate-accounts" element={<CorporateAccounts />} />
+        <Route path="/application-status" element={<ApplicationStatus />} />
+
+        {/* Catch-all */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!isAdminRoute && (
+        <>
+          {chatOpen && (
+            <FloatingChatPanel onClose={() => setChatOpen(false)}>
+              <LuxeRideChat />
+            </FloatingChatPanel>
+          )}
+          {!chatOpen && <FloatingChatButton onClick={() => setChatOpen(true)} />}
+        </>
+      )}
+    </>
+  );
+
+  return isAdminRoute ? (
+    appContent
+  ) : (
     <CopilotKit publicApiKey="ck_pub_25482ba2f78d4e5167211dd3f918f309">
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          {/* New Landing Page */}
-          <Route path="/" element={<LandingPage />} />
-          
-          {/* Legacy Homepage (backup) */}
-          <Route path="/legacy-home" element={<Index />} />
-          
-          {/* Service Pages */}
-          <Route path="/executive-cars" element={<ExecutiveCars />} />
-          <Route path="/vip-membership" element={<VIPMembership />} />
-
-          {/* Contact & Support */}
-          <Route path="/contact" element={<Contact />} />
-          
-          {/* Admin System */}
-          <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          
-          {/* Partnership and Application pages */}
-          <Route path="/car-owner-partnership" element={<CarOwnerPartnership />} />
-          <Route path="/chauffeur-application" element={<ChauffeurApplication />} />
-          <Route path="/corporate-accounts" element={<CorporateAccounts />} />
-          <Route path="/application-status" element={<ApplicationStatus />} />
-
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-            {chatOpen && (
-              <FloatingChatPanel onClose={() => setChatOpen(false)}>
-                <LuxeRideChat />
-              </FloatingChatPanel>
-            )}
-            {!chatOpen && <FloatingChatButton onClick={() => setChatOpen(true)} />}
-    </TooltipProvider>
-  </QueryClientProvider>
-      </ThemeProvider>
+      {appContent}
     </CopilotKit>
+  );
+}
+
+const App = () => (
+  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppWithOptionalCopilot />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
-};
 
 export default App;

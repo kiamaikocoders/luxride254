@@ -1,34 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PackageDetailsModal from "./PackageDetailsModal";
 
 const PackageSection = () => {
   const navigate = useNavigate();
+  const [packageModalOpen, setPackageModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<"gold" | "platinum" | "diamond">("gold");
 
-  const handlePackageSelect = (packageType: string) => {
-    // Navigate to existing VIP membership page with package pre-selected
-    navigate("/vip-membership", { 
-      state: { 
-        package: packageType,
-        fromLanding: true 
-      } 
-    });
+  const handlePackageSelect = (packageType: "gold" | "platinum" | "diamond") => {
+      setSelectedPackage(packageType);
+    setPackageModalOpen(true);
   };
 
   const handleCustomPlan = () => {
     navigate("/contact", { 
       state: { 
-        interest: "Custom VIP Plan",
+        interest: "Custom Membership Plan",
         fromLanding: true 
       } 
     });
   };
 
   return (
-    <section id="services" className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 section-gold-accent relative">
+      {/* Top Border Separator */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent"></div>
+      {/* Bottom Border Separator */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent"></div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">VIP Membership Packages</h2>
+        <div className="text-center mb-16 scroll-fade-up">
+          <h2 className="text-3xl md:text-4xl brand-heading mb-4">Membership Packages</h2>
           <div className="h-1 w-20 bg-yellow-400 mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Choose from our exclusive membership tiers designed to provide unparalleled luxury 
@@ -36,19 +38,15 @@ const PackageSection = () => {
           </p>
         </div>
         
-        {/* Membership Packages Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+        {/* Membership Packages Grid - Better Spacing */}
+        <div className="grid lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-12 scroll-stagger">
           {/* Gold Package */}
-          <div className="bg-white border border-gray-200 rounded-lg p-8 relative hover:shadow-lg hover:border-yellow-400 transition-all duration-300 animate-fade-in-delay-1">
+          <div className="card-enhanced p-8 relative">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm2.7-2h8.6l.9-5.4-2.1 2.1L12 8l-3.1 2.7-2.1-2.1L7.7 14z"/>
-                </svg>
+                <span className="text-4xl">👑</span>
               </div>
               <h3 className="text-2xl font-semibold mb-2 text-gray-900">Gold</h3>
-              <div className="text-3xl font-bold text-yellow-400 mb-2">KSH 150,000</div>
-              <p className="text-gray-500">/month</p>
               <p className="text-sm text-gray-600 mt-2">20 rides included • All-inclusive service</p>
             </div>
             
@@ -95,12 +93,12 @@ const PackageSection = () => {
               onClick={() => handlePackageSelect('gold')}
               className="w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition duration-200"
             >
-              Choose Gold
+              Choose Plan
             </button>
           </div>
           
           {/* Platinum Package - Most Popular */}
-          <div className="bg-white border-2 border-yellow-400 rounded-lg p-8 relative hover:shadow-xl transition-all duration-300 animate-fade-in-delay-2 shadow-lg">
+          <div className="bg-white border-2 border-yellow-400 rounded-lg p-8 relative hover:shadow-xl transition-all duration-300 shadow-lg">
             {/* Most Popular Badge */}
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
               <span className="bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium">
@@ -115,8 +113,6 @@ const PackageSection = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2 text-gray-900">Platinum</h3>
-              <div className="text-3xl font-bold text-yellow-400 mb-2">KSH 300,000</div>
-              <p className="text-gray-500">/month</p>
               <p className="text-sm text-gray-600 mt-2">40 rides included • All-inclusive service</p>
             </div>
             
@@ -167,23 +163,19 @@ const PackageSection = () => {
             
             <button 
               onClick={() => handlePackageSelect('platinum')}
-              className="w-full bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-yellow-300 transition duration-200"
+              className="btn-gold-gradient w-full text-gray-900 px-6 py-3 rounded-lg font-medium transition duration-200"
             >
-              Choose Platinum
+              Choose Plan
             </button>
           </div>
           
           {/* Diamond Package */}
-          <div className="bg-white border border-gray-200 rounded-lg p-8 relative hover:shadow-lg hover:border-yellow-400 transition-all duration-300 animate-fade-in-delay-3">
+          <div className="card-enhanced p-8 relative">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm2.7-2h8.6l.9-5.4-2.1 2.1L12 8l-3.1 2.7-2.1-2.1L7.7 14z"/>
-                </svg>
+                <span className="text-4xl">💎</span>
               </div>
               <h3 className="text-2xl font-semibold mb-2 text-gray-900">Diamond</h3>
-              <div className="text-3xl font-bold text-yellow-400 mb-2">KSH 500,000</div>
-              <p className="text-gray-500">/month</p>
               <p className="text-sm text-gray-600 mt-2">60 rides included • All-inclusive service</p>
             </div>
             
@@ -242,21 +234,21 @@ const PackageSection = () => {
               onClick={() => handlePackageSelect('diamond')}
               className="w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition duration-200"
             >
-              Choose Diamond
+              Choose Plan
             </button>
           </div>
         </div>
         
         {/* Custom Plan Section */}
-        <div className="text-center animate-fade-in">
-          <div className="bg-white border border-gray-200 rounded-lg p-8 max-w-2xl mx-auto hover:shadow-lg hover:border-yellow-400 transition-all duration-300">
+        <div className="text-center scroll-fade-up">
+          <div className="card-enhanced p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4 text-gray-900">Need a Custom Plan?</h3>
             <p className="text-gray-600 mb-6 leading-relaxed">
               Our VIP team can create a bespoke membership package tailored to your specific requirements.
             </p>
             <button 
               onClick={handleCustomPlan}
-              className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-medium hover:bg-yellow-300 transition duration-200"
+              className="btn-gold-gradient text-gray-900 px-8 py-3 rounded-lg font-medium transition duration-200"
             >
               Contact Us
             </button>
@@ -264,18 +256,13 @@ const PackageSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        .animate-fade-in-delay-1 { animation: fadeIn 0.8s ease-out 0.2s forwards; }
-        .animate-fade-in-delay-2 { animation: fadeIn 0.8s ease-out 0.4s forwards; }
-        .animate-fade-in-delay-3 { animation: fadeIn 0.8s ease-out 0.6s forwards; }
-        .animate-fade-in, .animate-fade-in-delay-1, .animate-fade-in-delay-2, 
-        .animate-fade-in-delay-3 { opacity: 0; }
-      `}</style>
+      {/* Package Details Modal */}
+      <PackageDetailsModal
+        open={packageModalOpen}
+        onClose={() => setPackageModalOpen(false)}
+        packageType={selectedPackage}
+      />
+
     </section>
   );
 };

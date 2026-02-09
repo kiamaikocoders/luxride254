@@ -9,11 +9,15 @@ const FleetSection = () => {
   };
 
   return (
-    <section id="fleet" className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="fleet" className="py-20 section-alternate relative">
+      {/* Top Border Separator */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent"></div>
+      {/* Bottom Border Separator */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent"></div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">Our Premium Fleet</h2>
+        <div className="text-center mb-16 scroll-fade-up">
+          <h2 className="text-3xl md:text-4xl brand-heading mb-4">Our Premium Fleet</h2>
           <div className="h-1 w-20 bg-yellow-400 mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Meticulously curated vehicles across three distinct luxury categories, 
@@ -21,7 +25,7 @@ const FleetSection = () => {
           </p>
           <button 
             onClick={handleViewAllFleet}
-            className="mt-6 bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-medium hover:bg-yellow-300 transition duration-200"
+            className="btn-gold-gradient mt-6 text-gray-900 px-8 py-3 rounded-lg font-medium transition duration-200"
           >
             View All Fleet
           </button>
@@ -30,7 +34,7 @@ const FleetSection = () => {
         {/* Fleet Categories */}
         <div className="space-y-12">
           {/* Executive Sedan */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-yellow-400 transition-all duration-300 animate-fade-in-delay-1">
+          <div className="card-enhanced overflow-hidden scroll-fade-left">
             <div className="grid md:grid-cols-2 gap-0">
               <div className="h-64 md:h-auto">
                 <img 
@@ -63,14 +67,14 @@ const FleetSection = () => {
                 </li>
                 </ul>
                 <div className="text-center">
-                  <p className="text-sm text-gray-500">Available in all VIP packages</p>
+                  <p className="text-sm text-gray-500">Available in all membership packages</p>
                 </div>
               </div>
             </div>
           </div>
           
           {/* Luxury SUV */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-yellow-400 transition-all duration-300 animate-fade-in-delay-2">
+          <div className="card-enhanced overflow-hidden scroll-fade-right">
             <div className="grid md:grid-cols-2 gap-0">
               <div className="h-64 md:h-auto md:order-2">
                 <img 
@@ -103,14 +107,14 @@ const FleetSection = () => {
                   </li>
                 </ul>
                 <div className="text-center">
-                  <p className="text-sm text-gray-500">Available in all VIP packages</p>
+                  <p className="text-sm text-gray-500">Available in all membership packages</p>
                 </div>
               </div>
             </div>
           </div>
           
           {/* Ultra-Luxury */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-yellow-400 transition-all duration-300 animate-fade-in-delay-3">
+          <div className="card-enhanced overflow-hidden scroll-fade-left">
             <div className="grid md:grid-cols-2 gap-0">
               <div className="h-64 md:h-auto">
                 <img 
@@ -151,18 +155,6 @@ const FleetSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        .animate-fade-in-delay-1 { animation: fadeIn 0.8s ease-out 0.2s forwards; }
-        .animate-fade-in-delay-2 { animation: fadeIn 0.8s ease-out 0.4s forwards; }
-        .animate-fade-in-delay-3 { animation: fadeIn 0.8s ease-out 0.6s forwards; }
-        .animate-fade-in, .animate-fade-in-delay-1, .animate-fade-in-delay-2, 
-        .animate-fade-in-delay-3 { opacity: 0; }
-      `}</style>
     </section>
   );
 };
