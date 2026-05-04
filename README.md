@@ -503,7 +503,7 @@ For questions, issues, or inquiries about LuxRide:
 
 ## 🏆 Credits
 
-Built with ❤️ by the LuxRide team using modern web technologies and best practices in full-stack development.
+Built using modern web technologies and best practices in full-stack development.
 
 **Tech Stack Contributors:**
 - React & Vite communities
